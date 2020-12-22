@@ -1,62 +1,155 @@
 //
 // Created by Le Minh Cristian on 2020/11/24.
 //
+#include <complex>
+#include <list>
+#include "../PreCompOpt.h"
 
 #ifndef QF_HAMIL_H
 #define QF_HAMIL_H
 
+// TODO: Add final classes to devirtualize and inline function calls
+// TODO: Make compatible with inline
 namespace QuanFloq {
-	template<int NValue>
-	class dHamil {
+	// region Const values
+	static constexpr cfloat cfloat1 = cfloat(1.0f);
+	static constexpr cfloat cfloat0 = cfloat(0.0f);
+	static constexpr cdouble cdouble1 = cdouble(1.0f);
+	static constexpr cdouble cdouble0 = cdouble(0.0f);
+	static constexpr float float1 = float(1.0f);
+	static constexpr float float0 = float(0.0f);
+	static constexpr double double1 = double(1.0f);
+	static constexpr double double0 = double(0.0f);
+	// endregion
+
+	// region Class Declarations
+//	template<typename T>
+//	class IHamil;
+	template<typename T>
+	class vHamil;
+	template<typename T>
+	class Hamil;
+	struct HamilSize;
+//	template<typename T, HamilSize Sz>
+//	template<typename T, HamilSize& Sz>
+//	class [[maybe_unused]] tHamil;
+	using sHamil = vHamil<float>;
+	using dHamil = vHamil<double>;
+	using cHamil = vHamil<cfloat >;
+	using zHamil = vHamil<cdouble >;
+	// endregion
+
+	// region Class Definitions
+	enum Hamil_Sym {
+		Full,
+		Sym,
+		Her,
+	};
+	/**
+	 * Basic Hamiltonian object
+	 */
+	template<typename T>
+//	class vHamil : virtual public IHamil<T> {
+	class vHamil {
+		// region Fields
+	private:
+		bool initialized = false;
 	public:
-		// Nested class
-		class Hamil;
-
-		// Fields
-		static const int N = NValue;
-		const Hamil* const H;
-		double* Psi;
-		double* E;
-
-		// Methods
+		const int nH;
+		const Hamil_Sym Sym;
 	protected:
-		dHamil( dHamil<NValue>::Hamil* H, double* Psi, double* E );
-		explicit dHamil( dHamil<NValue>::Hamil* H );
-		~dHamil();
+		T* H;
+		T* Psi;
+		T* E;
 	public:
-		/** @defgroup PsiHPsi Energy expectation
-		 * Expectation value of E
-		 * @{
-		 */
-		/**
-		 * @return Energy expectation
-		 */
-		virtual double PsiHPsi();
-		/**
-		 * @copydoc double PsiHPsi()
-		 * @param Psi Wavefunction
-		 */
-		virtual double PsiHPsi( double* Psi );
-		virtual void PsiHPsi( double* Psi, double* E, double* HPsi ) = 0;
-		/** @} */
-		virtual double* HPsi();
-		virtual double* HPsi( double* Psi );
-		virtual void HPsi( double* Psi, double* HPsi, int N ) = 0;
-		virtual void HPsi( double* Psi, double* HPsi ) = 0;
+		std::list<void (*)( vHamil<T>*, T* )> PreHPsi;
+		std::list<void (*)( vHamil<T>*, T*, T* )> PostHPsi;
+		std::list<void (*)( vHamil<T>*, T* )> PrePsiHPsi;
+		std::list<void (*)( vHamil<T>*, T*, T*, T* )> PostPsiHPsi;
+		// endregion
 
-		virtual double Overlap( double* Bra, double* Ket ) = 0;
-		virtual void NormalizePsi( double* Psi, bool FlagNorm = false ) = 0;
+		// region Methods
+		// region Constructor/Destructor
+	public:
+		vHamil();
+		explicit vHamil( int nH, Hamil_Sym Sym, bool initM = false );
+		vHamil( int nH, Hamil_Sym Sym, T* H, T* Psi, T* E );
+		// endregion
+
+		// region Get/Set
+		[[nodiscard]] T* getH() const;
+		virtual void setH( T* H );
+		// TODO: add setH (T(*)[Sz.nH]) for templated Sz, include old interface as well
+		virtual void setH( T** H );
+		[[nodiscard]] const T* getPsi() const;
+		[[nodiscard]] const T* getE() const;
+		// endregion
+
+		// region Main methods
+	public:
+		void Initialize( T* tH );
+	protected:
+		virtual void mHPsi( T* tPsi, T* tHPsi );
+		virtual void mPsiHPsi( T* tPsi, T* tE, T* tHPsi );
+
+	public:
+		virtual T* HPsi();
+		virtual T* HPsi( T* tPsi );
+		virtual void HPsi( T* tPsi, T* tHPsi );
+		virtual T PsiHPsi();
+		virtual T PsiHPsi( T* tPsi );
+		virtual void PsiHPsi( T* tPsi, T* tE, T* tHPsi );
+
+		virtual T Overlap( T* Bra, T* Ket );
+		virtual void NormalizePsi( T* tPsi, bool FlagNorm = false );
+		// endregion
+		// endregion
 	};
 
-	template<int N>
-	class dHamil<N>::Hamil {
-	protected:
-		double* H;
-		Hamil();
-		explicit Hamil( double* H );
-		~Hamil();
+	// TODO: Implement final class and rename virtual class
+	template<typename T>
+	class Hamil :
+			public vHamil<T> {
 	public:
-		virtual explicit operator double*() const;
+		explicit Hamil( int nH, Hamil_Sym Sym );
+		Hamil( int nH, Hamil_Sym Sym, T* H );
 	};
+
+	struct HamilSize {
+		const int nH;
+		const int nH2 = nH * nH;
+		const int nH2t = nH * (nH + 1) / 2;
+//		const int nF_max = 0, nFH = 0;
+//		const int nElec, nOrb;
+//		const int nUEx;
+//		const int nFh;
+//		constexpr explicit HamilSize(int tnH);
+		constexpr explicit HamilSize( int tnH ) : nH(tnH) { };
+	} __attribute__((aligned(16)));
+//	constexpr SizeStruct test = SizeStruct(0);
+
+//	template<typename T, SizeStruct Sz>
+	template<typename T, HamilSize const& Sz>
+	class tHamil :
+			public vHamil<T> {
+	public:
+		T H[Sz.nH * (Sz.nH + 1) / 2];
+		T Psi[Sz.nH * Sz.nH];
+		T E[Sz.nH];
+
+	public:
+		tHamil();
+		explicit tHamil( T* tH );
+	};
+	// endregion
 }
+
+//template
+//class QuanFloq::IHamil<double>;
+//template
+//class QuanFloq::IHamil<float>;
+//template
+//class QuanFloq::IHamil<cfloat >;
+//template
+//class QuanFloq::IHamil<cdouble >;
 #endif //QF_HAMIL_H
