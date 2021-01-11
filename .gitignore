@@ -1,5 +1,15 @@
-/.idea/
-/cmake-build*
-/build*
-/lib/
-/docs/
+# IDE and Projet structure
+.idea/
+cmake-build*
+build/
+lib/
+docs/
+include/
+
+# General ignore patterns
+*~
+
+# MATLAB
+interface/MATLAB/Dimer/
+*.mat
+*.asv

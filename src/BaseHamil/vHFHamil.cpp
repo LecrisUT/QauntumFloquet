@@ -74,18 +74,20 @@ template<typename T>
 HFHamil<T>::HFHamil( int nH, Hamil_Sym Sym, int nElec, int nOrb, T* h, T* UEx ) :
 		HFHamil<T>(nH, Sym, nElec, nOrb, nH * nH, h, UEx) { }
 
-template<typename T, const HFHamilSize& Sz>
-tHFHamil<T, Sz>::tHFHamil() : tHamil<T, (const HamilSize&)Sz>() {
+#if __cplusplus >= 202002L
+template<typename T, HFHamilSize Sz>
+tHFHamil<T, Sz>::tHFHamil() : tHamil<T,Sz>() {
 	vHFHamil<T>::h = h;
 	vHFHamil<T>::indvH = indvH;
 	vHFHamil<T>::vh = vh;
 	vHFHamil<T>::tensUEx = tensUEx;
 }
-template<typename T, const HFHamilSize& Sz>
+template<typename T, HFHamilSize Sz>
 tHFHamil<T, Sz>::tHFHamil( T* th ):tHFHamil() {
 	std::copy(th, th + Sz.nH2t, h);
 	copyhtoH<T>(h, this->H, this->nH);
 }
+#endif
 
 // endregion
 
@@ -227,9 +229,9 @@ template<typename T>
 void vHFHamil<T>::UpdateH( vHamil<T>* Hamil, T* tPsi ) {
 	// TODO: Test if virtualization works
 	auto tHamil = dynamic_cast<vHFHamil<T>*>( Hamil);
-//	auto tHamil = static_cast<vHFHamil<T>*>( Hamil);
-//	auto tHamil = reinterpret_cast<vHFHamil<T>*>( Hamil);
-//	auto tHamil = (vHFHamil<T>*)Hamil;
+//	auto tHamil = static_cast<vHFHamil<T>*>( BaseHamil);
+//	auto tHamil = reinterpret_cast<vHFHamil<T>*>( BaseHamil);
+//	auto tHamil = (vHFHamil<T>*)BaseHamil;
 	tHamil->UpdateH(tPsi);
 }
 

@@ -103,6 +103,7 @@ namespace QuanFloq {
 		FloqHamil( int nH, Hamil_Sym SSym, int nFH, int nF_max, T* H, T w );
 	};
 
+#if __cplusplus >= 202002L
 	struct FloqHamilSize :
 			public HamilSize {
 		const int nF_max = 0, nFH = 0;
@@ -111,10 +112,8 @@ namespace QuanFloq {
 		constexpr explicit FloqHamilSize( int tnH ) : HamilSize(tnH), n2F_max(2 * nF_max + 1),
 		                                              nH2F_max(nH * n2F_max) { }
 	} __attribute__((aligned(16))) __attribute__((packed));
-//	constexpr SizeStruct test = SizeStruct(0);
 
-//	template<typename T, SizeStruct Sz>
-	template<typename T, FloqHamilSize const& Sz>
+	template<typename T, FloqHamilSize Sz>
 	class [[maybe_unused]] tFloqHamil :
 			public vFloqHamil<T> {
 	public:
@@ -128,6 +127,18 @@ namespace QuanFloq {
 		tFloqHamil();
 		explicit tFloqHamil( T* tH );
 	};
+#endif
+	// endregion
+
+	// region template initialization
+	extern template
+	class FloqHamil<float>;
+	extern template
+	class FloqHamil<double>;
+	extern template
+	class FloqHamil<cfloat>;
+	extern template
+	class FloqHamil<cdouble>;
 	// endregion
 }
 #endif

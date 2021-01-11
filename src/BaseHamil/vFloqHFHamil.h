@@ -74,6 +74,17 @@ namespace QuanFloq {
 	};
 
 	int CalcCsr_nUEx( int nUEx, int nFH, int n2F_max );
+
+	// region template initialization
+	extern template
+	class FloqHFHamil<float>;
+	extern template
+	class FloqHFHamil<double>;
+	extern template
+	class FloqHFHamil<cfloat>;
+	extern template
+	class FloqHFHamil<cdouble>;
+	// endregion
 }
 
 

@@ -1,10 +1,10 @@
 //
 // Created by Le Minh Cristian on 2020/12/07.
 //
-#include "../src/Hamil/Hamil.h"
-#include "../src/Hamil/FloqHamil.h"
-#include "../src/Hamil/HFHamil.h"
-#include "../src/Hamil/FloqHFHamil.h"
+#include <vHamil.h>
+#include <vFloqHamil.h>
+#include <vHFHamil.h>
+#include <vFloqHFHamil.h>
 
 #ifndef QF_TEST_H
 #define QF_TEST_H

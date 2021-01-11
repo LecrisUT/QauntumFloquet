@@ -1,39 +1,25 @@
 //
-// Created by Le Minh Cristian on 2020/12/07.
+// Created by Le Minh Cristian on 2020/12/24.
 //
-#include "../Hamil/HFHamil.h"
-#include "Dimer.h"
 
 #ifndef QF_HFDIMER_H
 #define QF_HFDIMER_H
 
+#include "../vHFDimer.h"
+
 namespace QuanFloq {
-	// region Class Declarations
 	template<typename T>
 	class HFDimer;
 	using sHFDimer = HFDimer<float>;
 	using dHFDimer = HFDimer<double>;
 	using cHFDimer = HFDimer<cfloat >;
 	using zHFDimer = HFDimer<cdouble >;
-	// endregion
-
 	template<typename T>
-	class HFDimer :
-			virtual public vHamil<T>,
-			virtual public vHFHamil<T>,
-			virtual public Dimer<T> {
-
+	class HFDimer final :
+			public vHFDimer<T> {
 	public:
-		HFDimer();
-		explicit HFDimer( T v, T U, T t = 1.0f );
-	protected:
-		T* MakeUEx( T U );
+		HFDimer( T v, T U, T t = 1.0f );
 
-	public:
-		void setT( T t ) override;
-		void setV( T v ) override;
-		void setU( T U ) override;
 	};
 }
-
 #endif //QF_HFDIMER_H

@@ -68,19 +68,19 @@ void Test<T>::PrintMatrix( T* M, int m, int n, int mSep, int nSep, bool Transpos
 
 template<typename T>
 inline void Test<T>::PrintH( vHamil<T>* H ) {
-	PrintTriangMatrix(H->getH(), H->nH);
+	PrintTriangMatrix((T*)H->getH(), H->nH);
 }
 template<typename T>
 void Test<T>::PrintH( vFloqHamil<T>* H, bool flag_Full ) {
-	PrintFloqMatrix(H->getH(), H->nH, H->nFH, flag_Full);
+	PrintFloqMatrix((T*)H->getH(), H->nH, H->nFH, flag_Full);
 }
 template<typename T>
 inline void Test<T>::Printh( vHFHamil<T>* H ) {
-	PrintTriangMatrix(H->geth(), H->nH);
+	PrintTriangMatrix((T*)H->geth(), H->nH);
 }
 template<typename T>
 void Test<T>::Printh( vFloqHFHamil<T>* H, bool flag_Full ) {
-	PrintFloqMatrix(H->geth(), H->nH, H->nFh, flag_Full);
+	PrintFloqMatrix((T*)H->geth(), H->nH, H->nFh, flag_Full);
 }
 template<typename T>
 void Test<T>::PrintUEx( vHFHamil<T>* H ) {
@@ -92,7 +92,7 @@ void Test<T>::PrintUEx( vFloqHFHamil<T>* H, bool flag_Full ) {
 }
 template<typename T>
 void Test<T>::PrintSH( vFloqHamil<T>* H ) {
-	auto nH2F_max = H->nH2F_max;
+	auto nH2F_max = H->nH*(2*H->nF_max+1);
 	auto nH = H->nH;
 	auto* M = new T[nH2F_max * nH2F_max]();
 #ifdef OLDMKL
@@ -104,7 +104,7 @@ void Test<T>::PrintSH( vFloqHamil<T>* H ) {
 }
 template<typename T>
 void Test<T>::PrintSHf( vFloqHamil<T>* H ) {
-	auto nH2F_max = H->nH2F_max;
+	auto nH2F_max = H->nH*(2*H->nF_max+1);
 	auto nH = H->nH;
 	auto M = new T[nH2F_max * nH2F_max]();
 #ifdef OLDMKL
@@ -195,14 +195,22 @@ void Test<cdouble >::ConvertSparseToDense( sparse_matrix* S, int N, matrix_descr
 	assert(res == SPARSE_STATUS_SUCCESS);
 }
 #endif
+#ifdef BUILD_FLOAT
 template
 class QuanFloq::Test<float>;
+#endif
+#ifdef BUILD_DOUBLE
 template
 class QuanFloq::Test<double>;
+#endif
+#ifdef BUILD_CFLOAT
 template
 class QuanFloq::Test<cfloat >;
+#endif
+#ifdef BUILD_CDOUBLE
 template
 class QuanFloq::Test<cdouble >;
+#endif
 /*template<typename T>
 void QuanFloq::PrintH( vFloqHamil<T> H, bool flag_Full ) {
 	auto nFH = flag_Full ? 2 * H.nFH + 1 : H.nFH + 1;

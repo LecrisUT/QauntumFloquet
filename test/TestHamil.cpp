@@ -3,10 +3,10 @@
 //
 #include <cmath>
 #include <iostream>
-#include "../src/Hubbard/Dimer.h"
-#include "../src/Hubbard/FloqDimer.h"
-#include "../src/Hubbard/HFDimer.h"
-#include "../src/Hubbard/FloqHFDimer.h"
+#include <Dimer.h>
+#include <FloqDimer.h>
+#include <HFDimer.h>
+#include <FloqHFDimer.h>
 #include "Test.h"
 
 using namespace QuanFloq;
@@ -21,32 +21,41 @@ template<typename T>
 void PerformFloqHFTest();
 
 int main() {
+//	Version();
+#ifdef BUILD_FLOAT
 	PerformTest<float>();
-//	PerformTest<double>();
-//	PerformTest<cfloat >();
-//	PerformTest<cdouble >();
 	PerformFloqTest<float>();
-//	PerformFloqTest<double>();
-//	PerformFloqTest<cfloat >();
-//	PerformFloqTest<cdouble >();
 	PerformHFTest<float>();
-//	PerformHFTest<double>();
-//	PerformHFTest<cfloat >();
-//	PerformHFTest<cdouble >();
 	PerformFloqHFTest<float>();
-//	PerformFloqHFTest<double>();
-//	PerformFloqHFTest<cfloat >();
-//	PerformFloqHFTest<cdouble >();
+#endif
+#ifdef BUILD_DOUBLE
+	PerformTest<double>();
+	PerformFloqTest<double>();
+	PerformHFTest<double>();
+	PerformFloqHFTest<double>();
+#endif
+#ifdef BUILD_CFLOAT
+	PerformTest<cfloat >();
+	PerformFloqTest<cfloat >();
+	PerformHFTest<cfloat >();
+	PerformFloqHFTest<cfloat >();
+#endif
+#ifdef BUILD_CDOUBLE
+	PerformTest<cdouble >();
+	PerformFloqTest<cdouble >();
+	PerformHFTest<cdouble >();
+	PerformFloqHFTest<cdouble >();
+#endif
 	return 0;
 }
 
 template<typename T>
 void PerformTest() {
-	T Psi[] = {1.0f, 2.0f, 3.0f};
+	T Psi[] = {.5f, std::sqrt(3.0f) * .5f, 0.0f};
 	T HPsi[3] = {};
 	T E;
-	auto H = Dimer<T>(1.0f, 2.0f);
-	std::cout << "Testing for Dimer<" << typeid(T).name() << ">:" << std::endl;
+	auto H = Dimer<T>(2.0f, 10.0f);
+	std::cout << "Testing for vDimer<" << typeid(T).name() << ">:" << std::endl;
 	std::cout << "PreHPsi:" << H.PreHPsi.size();
 	std::cout << " PostHPsi:" << H.PostHPsi.size();
 	std::cout << " PrePsiHPsi:" << H.PrePsiHPsi.size();
@@ -67,13 +76,13 @@ void PerformTest() {
 template<typename T>
 void PerformFloqTest() {
 	T Psi[21] = {};
-	Psi[9] = 1.0f;
-	Psi[10] = 2.0f;
-	Psi[11] = 3.0f;
+	Psi[9] = .5f;
+	Psi[10] = std::sqrt(3.0f) * .5f;
+	Psi[11] = 0.0f;
 	T HPsi[21] = {};
 	T E;
-	auto H = FloqDimer<T>(3, 2.0f, 3.0f, 5.0f, 1.5f);
-	std::cout << "Testing for FloqDimer<" << typeid(T).name() << ">:" << std::endl;
+	auto H = FloqDimer<T>(3, 2.0f, 5.0f, 10.0f, 1.5f);
+	std::cout << "Testing for vFloqDimer<" << typeid(T).name() << ">:" << std::endl;
 	std::cout << "PreHPsi:" << H.PreHPsi.size();
 	std::cout << " PostHPsi:" << H.PostHPsi.size();
 	std::cout << " PrePsiHPsi:" << H.PrePsiHPsi.size();
@@ -100,8 +109,8 @@ void PerformHFTest() {
 	T Psi[] = {0.5f, std::sqrt(3.0f) * 0.5f};
 	T HPsi[2] = {};
 	T E;
-	auto H = HFDimer<T>(1.0f, 2.0f, 1.0f);
-	std::cout << "Testing for HFDimer<" << typeid(T).name() << ">:" << std::endl;
+	auto H = HFDimer<T>(2.0f, 10.0f);
+	std::cout << "Testing for vHFDimer<" << typeid(T).name() << ">:" << std::endl;
 	std::cout << "PreHPsi:" << H.PreHPsi.size();
 	std::cout << " PostHPsi:" << H.PostHPsi.size();
 	std::cout << " PrePsiHPsi:" << H.PrePsiHPsi.size();
@@ -138,8 +147,8 @@ void PerformFloqHFTest() {
 	Psi[9] = std::sqrt(3.0f) * 0.5f;
 	T HPsi[14] = {};
 	T E;
-	auto H = FloqHFDimer<T>(2, 3, 2.0f, 3.0f, 5.0f, 1.5f);
-	std::cout << "Testing for HFDimer<" << typeid(T).name() << ">:" << std::endl;
+	auto H = FloqHFDimer<T>(2, 3, 2.0f, 5.0f, 10.0f, 1.5f);
+	std::cout << "Testing for vFloqHFDimer<" << typeid(T).name() << ">:" << std::endl;
 	std::cout << "PreHPsi:" << H.PreHPsi.size();
 	std::cout << " PostHPsi:" << H.PostHPsi.size();
 	std::cout << " PrePsiHPsi:" << H.PrePsiHPsi.size();
@@ -175,5 +184,4 @@ void PerformFloqHFTest() {
 	Test<T>::PrintMatrix(HPsi, 2, 7, true);
 	H.HPsi(Psi, HPsi, false);
 	std::cout << "HPsi: HPsi" << std::endl;
-	Test<T>::PrintMatrix(HPsi, 2, 7, true);
 }

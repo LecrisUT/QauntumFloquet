@@ -69,7 +69,7 @@ namespace QuanFloq {
 	};
 
 	template<typename T>
-	class HFHamil final:
+	class HFHamil final :
 			virtual public vHFHamil<T> {
 	public:
 		HFHamil( int nH, Hamil_Sym Sym, int nElec, int nOrb, int nUEx );
@@ -78,19 +78,18 @@ namespace QuanFloq {
 		HFHamil( int nH, Hamil_Sym Sym, int nElec, int nOrb, T* h, T* UEx );
 	};
 
+#if __cplusplus >= 202002L
 	struct HFHamilSize :
 			public HamilSize {
 		const int nUEx;
 		constexpr explicit HFHamilSize( int tnH, int tnUEx = -1 ) : HamilSize(tnH),
 		                                                            nUEx(tnUEx < 0 ? tnH * tnH : tnUEx) { }
 	} __attribute__((aligned(4))) __attribute__((packed));
-//	constexpr SizeStruct test = SizeStruct(0);
 
-//	template<typename T, HFHamilSize Sz>
-	template<typename T, HFHamilSize const& Sz>
+	template<typename T, HFHamilSize Sz>
 	class [[maybe_unused]] tHFHamil :
 			virtual public vHFHamil<T>,
-			virtual public tHamil<T, (HamilSize&)Sz> {
+			virtual public tHamil<T, Sz> {
 	public:
 		T h[Sz.nH * Sz.nH];
 		T tensUEx[Sz.nUEx * Sz.nH * Sz.nH];
@@ -101,6 +100,18 @@ namespace QuanFloq {
 		tHFHamil();
 		explicit tHFHamil( T* th );
 	};
+#endif
+
+	// region template initialization
+	extern template
+	class HFHamil<float>;
+	extern template
+	class HFHamil<double>;
+	extern template
+	class HFHamil<cfloat>;
+	extern template
+	class HFHamil<cdouble>;
+	// endregion
 }
 
 #endif //QF_HFHAMIL_H

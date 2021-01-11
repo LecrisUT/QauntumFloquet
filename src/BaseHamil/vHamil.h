@@ -3,10 +3,10 @@
 //
 #include <complex>
 #include <list>
-#include "../PreCompOpt.h"
+#include "../Conf.h"
 
-#ifndef QF_HAMIL_H
-#define QF_HAMIL_H
+#ifndef QF_BASEHAMIL_H
+#define QF_BASEHAMIL_H
 
 // TODO: Add final classes to devirtualize and inline function calls
 // TODO: Make compatible with inline
@@ -27,16 +27,11 @@ namespace QuanFloq {
 //	class IHamil;
 	template<typename T>
 	class vHamil;
-	template<typename T>
-	class Hamil;
+#if __cplusplus >= 202002L
 	struct HamilSize;
-//	template<typename T, HamilSize Sz>
-//	template<typename T, HamilSize& Sz>
-//	class [[maybe_unused]] tHamil;
-	using sHamil = vHamil<float>;
-	using dHamil = vHamil<double>;
-	using cHamil = vHamil<cfloat >;
-	using zHamil = vHamil<cdouble >;
+	template<typename T, HamilSize Sz>
+	class [[maybe_unused]] tHamil;
+#endif
 	// endregion
 
 	// region Class Definitions
@@ -107,29 +102,16 @@ namespace QuanFloq {
 	};
 
 	// TODO: Implement final class and rename virtual class
-	template<typename T>
-	class Hamil :
-			public vHamil<T> {
-	public:
-		explicit Hamil( int nH, Hamil_Sym Sym );
-		Hamil( int nH, Hamil_Sym Sym, T* H );
-	};
 
+#if __cplusplus >= 202002L
 	struct HamilSize {
 		const int nH;
 		const int nH2 = nH * nH;
 		const int nH2t = nH * (nH + 1) / 2;
-//		const int nF_max = 0, nFH = 0;
-//		const int nElec, nOrb;
-//		const int nUEx;
-//		const int nFh;
-//		constexpr explicit HamilSize(int tnH);
 		constexpr explicit HamilSize( int tnH ) : nH(tnH) { };
 	} __attribute__((aligned(16)));
-//	constexpr SizeStruct test = SizeStruct(0);
 
-//	template<typename T, SizeStruct Sz>
-	template<typename T, HamilSize const& Sz>
+	template<typename T, HamilSize Sz>
 	class tHamil :
 			public vHamil<T> {
 	public:
@@ -141,15 +123,7 @@ namespace QuanFloq {
 		tHamil();
 		explicit tHamil( T* tH );
 	};
+#endif
 	// endregion
 }
-
-//template
-//class QuanFloq::IHamil<double>;
-//template
-//class QuanFloq::IHamil<float>;
-//template
-//class QuanFloq::IHamil<cfloat >;
-//template
-//class QuanFloq::IHamil<cdouble >;
-#endif //QF_HAMIL_H
+#endif //QF_BASEHAMIL_H

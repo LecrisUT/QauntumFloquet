@@ -1,0 +1,1255 @@
+%% About defineDimer.mlx
+% This file defines the MATLAB interface to the library |Dimer|.
+%
+% Commented sections represent C++ functionality that MATLAB cannot automatically define. To include
+% functionality, uncomment a section and provide values for &lt;SHAPE&gt;, &lt;DIRECTION&gt;, etc. For more
+% information, see <matlab:helpview(fullfile(docroot,'matlab','helptargets.map'),'cpp_define_interface') Define MATLAB Interface for C++ Library>.
+
+
+
+%% Setup. Do not edit this section.
+function libDef = defineDimer()
+libDef = clibgen.LibraryDefinition("DimerData.xml");
+%% OutputFolder and Libraries 
+%  getenv() might not work here. Replace it with appropriate value.
+%  TODO: Find and test a portable installer approach, e.g. add input to this function
+%  TODO: Create this file from template using CMake
+libDef.OutputFolder = string([getenv('PROJDIR') '/interface/MATLAB']);
+libDef.Libraries = string([getenv('PROJDIR') '/lib/libDimer.so']);
+
+%% C++ class |QuanFloq::vHamil<double>| with MATLAB name |clib.Dimer.QuanFloq.dvHamil| 
+dvHamilDefinition = addClass(libDef, "QuanFloq::vHamil<double>", "MATLABName", "clib.Dimer.QuanFloq.dvHamil", ...
+    "Description", "clib.Dimer.QuanFloq.dvHamil    Representation of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+
+%% C++ class method |getH| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: double const * QuanFloq::vHamil<double>::getH() const
+%getHDefinition = addMethod(dvHamilDefinition, ...
+%    "double const * QuanFloq::vHamil<double>::getH() const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.getH    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineOutput(getHDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getHDefinition);
+
+%% C++ class method |setH| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: void QuanFloq::vHamil<double>::setH(double * H)
+%setHDefinition = addMethod(dvHamilDefinition, ...
+%    "void QuanFloq::vHamil<double>::setH(double * H)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.setH    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(setHDefinition, "H", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(setHDefinition);
+
+%% C++ class method |getPsi| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: double const * QuanFloq::vHamil<double>::getPsi() const
+%getPsiDefinition = addMethod(dvHamilDefinition, ...
+%    "double const * QuanFloq::vHamil<double>::getPsi() const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.getPsi    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineOutput(getPsiDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getPsiDefinition);
+
+%% C++ class method |getE| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: double const * QuanFloq::vHamil<double>::getE() const
+%getEDefinition = addMethod(dvHamilDefinition, ...
+%    "double const * QuanFloq::vHamil<double>::getE() const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.getE    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineOutput(getEDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getEDefinition);
+
+%% C++ class method |Initialize| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: void QuanFloq::vHamil<double>::Initialize(double * tH)
+%InitializeDefinition = addMethod(dvHamilDefinition, ...
+%    "void QuanFloq::vHamil<double>::Initialize(double * tH)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.Initialize    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(InitializeDefinition, "tH", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(InitializeDefinition);
+
+%% C++ class method |HPsi| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: double * QuanFloq::vHamil<double>::HPsi()
+%HPsiDefinition = addMethod(dvHamilDefinition, ...
+%    "double * QuanFloq::vHamil<double>::HPsi()", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.HPsi    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineOutput(HPsiDefinition, "RetVal", "double", <SHAPE>);
+%validate(HPsiDefinition);
+
+%% C++ class method |HPsi| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: double * QuanFloq::vHamil<double>::HPsi(double * tPsi)
+%HPsiDefinition = addMethod(dvHamilDefinition, ...
+%    "double * QuanFloq::vHamil<double>::HPsi(double * tPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.HPsi    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(HPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineOutput(HPsiDefinition, "RetVal", "double", <SHAPE>);
+%validate(HPsiDefinition);
+
+%% C++ class method |HPsi| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: void QuanFloq::vHamil<double>::HPsi(double * tPsi,double * tHPsi)
+%HPsiDefinition = addMethod(dvHamilDefinition, ...
+%    "void QuanFloq::vHamil<double>::HPsi(double * tPsi,double * tHPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.HPsi    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(HPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(HPsiDefinition, "tHPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(HPsiDefinition);
+
+%% C++ class method |PsiHPsi| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: double QuanFloq::vHamil<double>::PsiHPsi()
+PsiHPsiDefinition = addMethod(dvHamilDefinition, ...
+    "double QuanFloq::vHamil<double>::PsiHPsi()", ...
+    "Description", "clib.Dimer.QuanFloq.dvHamil.PsiHPsi    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+defineOutput(PsiHPsiDefinition, "RetVal", "double");
+validate(PsiHPsiDefinition);
+
+%% C++ class method |PsiHPsi| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: double QuanFloq::vHamil<double>::PsiHPsi(double * tPsi)
+%PsiHPsiDefinition = addMethod(dvHamilDefinition, ...
+%    "double QuanFloq::vHamil<double>::PsiHPsi(double * tPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.PsiHPsi    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(PsiHPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineOutput(PsiHPsiDefinition, "RetVal", "double");
+%validate(PsiHPsiDefinition);
+
+%% C++ class method |PsiHPsi| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: void QuanFloq::vHamil<double>::PsiHPsi(double * tPsi,double * tE,double * tHPsi)
+%PsiHPsiDefinition = addMethod(dvHamilDefinition, ...
+%    "void QuanFloq::vHamil<double>::PsiHPsi(double * tPsi,double * tE,double * tHPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.PsiHPsi    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(PsiHPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tE", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tHPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(PsiHPsiDefinition);
+
+%% C++ class method |Overlap| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: double QuanFloq::vHamil<double>::Overlap(double * Bra,double * Ket)
+%OverlapDefinition = addMethod(dvHamilDefinition, ...
+%    "double QuanFloq::vHamil<double>::Overlap(double * Bra,double * Ket)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.Overlap    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(OverlapDefinition, "Bra", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(OverlapDefinition, "Ket", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineOutput(OverlapDefinition, "RetVal", "double");
+%validate(OverlapDefinition);
+
+%% C++ class method |NormalizePsi| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: void QuanFloq::vHamil<double>::NormalizePsi(double * tPsi,bool FlagNorm)
+%NormalizePsiDefinition = addMethod(dvHamilDefinition, ...
+%    "void QuanFloq::vHamil<double>::NormalizePsi(double * tPsi,bool FlagNorm)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.NormalizePsi    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(NormalizePsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(NormalizePsiDefinition, "FlagNorm", "logical");
+%validate(NormalizePsiDefinition);
+
+%% C++ class method |getH| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: double const * QuanFloq::vHamil<double>::getH(int m,int n) const
+%getHDefinition = addMethod(dvHamilDefinition, ...
+%    "double const * QuanFloq::vHamil<double>::getH(int m,int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.getH    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(getHDefinition, "m", "int32");
+%defineArgument(getHDefinition, "n", "int32");
+%defineOutput(getHDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getHDefinition);
+
+%% C++ class method |getPsi| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: double const * QuanFloq::vHamil<double>::getPsi(int m,int n) const
+%getPsiDefinition = addMethod(dvHamilDefinition, ...
+%    "double const * QuanFloq::vHamil<double>::getPsi(int m,int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.getPsi    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(getPsiDefinition, "m", "int32");
+%defineArgument(getPsiDefinition, "n", "int32");
+%defineOutput(getPsiDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getPsiDefinition);
+
+%% C++ class method |getE| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: double const * QuanFloq::vHamil<double>::getE(int n) const
+%getEDefinition = addMethod(dvHamilDefinition, ...
+%    "double const * QuanFloq::vHamil<double>::getE(int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.getE    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(getEDefinition, "n", "int32");
+%defineOutput(getEDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getEDefinition);
+
+%% C++ class method |Overlap| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: double QuanFloq::vHamil<double>::Overlap(double * Bra,double * Ket,int n)
+%OverlapDefinition = addMethod(dvHamilDefinition, ...
+%    "double QuanFloq::vHamil<double>::Overlap(double * Bra,double * Ket,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.Overlap    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(OverlapDefinition, "Bra", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(OverlapDefinition, "Ket", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(OverlapDefinition, "n", "int32");
+%defineOutput(OverlapDefinition, "RetVal", "double");
+%validate(OverlapDefinition);
+
+%% C++ class method |NormalizePsi| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: void QuanFloq::vHamil<double>::NormalizePsi(double * tPsi,int n,bool FlagNorm)
+%NormalizePsiDefinition = addMethod(dvHamilDefinition, ...
+%    "void QuanFloq::vHamil<double>::NormalizePsi(double * tPsi,int n,bool FlagNorm)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.NormalizePsi    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(NormalizePsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(NormalizePsiDefinition, "n", "int32");
+%defineArgument(NormalizePsiDefinition, "FlagNorm", "logical");
+%validate(NormalizePsiDefinition);
+
+%% C++ class method |HPsi| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: void QuanFloq::vHamil<double>::HPsi(double * tPsi,double * tHPsi,int m,int n)
+%HPsiDefinition = addMethod(dvHamilDefinition, ...
+%    "void QuanFloq::vHamil<double>::HPsi(double * tPsi,double * tHPsi,int m,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.HPsi    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(HPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(HPsiDefinition, "tHPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(HPsiDefinition, "m", "int32");
+%defineArgument(HPsiDefinition, "n", "int32");
+%validate(HPsiDefinition);
+
+%% C++ class method |PsiHPsi| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: void QuanFloq::vHamil<double>::PsiHPsi(double * tPsi,double * tE,double * tHPsi,int m,int n)
+%PsiHPsiDefinition = addMethod(dvHamilDefinition, ...
+%    "void QuanFloq::vHamil<double>::PsiHPsi(double * tPsi,double * tE,double * tHPsi,int m,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHamil.PsiHPsi    Method of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+%defineArgument(PsiHPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tE", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tHPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "m", "int32");
+%defineArgument(PsiHPsiDefinition, "n", "int32");
+%validate(PsiHPsiDefinition);
+
+%% C++ class constructor for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: QuanFloq::vHamil<double>::vHamil(QuanFloq::vHamil<double> const & input1)
+dvHamilConstructor1Definition = addConstructor(dvHamilDefinition, ...
+    "QuanFloq::vHamil<double>::vHamil(QuanFloq::vHamil<double> const & input1)", ...
+    "Description", "clib.Dimer.QuanFloq.dvHamil.vHamil    Constructor of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+defineArgument(dvHamilConstructor1Definition, "input1", "clib.Dimer.QuanFloq.dvHamil", "input");
+validate(dvHamilConstructor1Definition);
+
+%% C++ class public data member |nH| for C++ class |QuanFloq::vHamil<double>| 
+% C++ Signature: int const QuanFloq::vHamil<double>::nH
+addProperty(dvHamilDefinition, "nH", "int32", ...
+    "Description", "int32    read-only Data member of C++ class QuanFloq::vHamil<double>."); % Modify help description values as needed.
+
+%% C++ class |QuanFloq::vDimer<double>| with MATLAB name |clib.Dimer.QuanFloq.dvDimer| 
+dvDimerDefinition = addClass(libDef, "QuanFloq::vDimer<double>", "MATLABName", "clib.Dimer.QuanFloq.dvDimer", ...
+    "Description", "clib.Dimer.QuanFloq.dvDimer    Representation of C++ class QuanFloq::vDimer<double>."); % Modify help description values as needed.
+
+%% C++ class method |getT| for C++ class |QuanFloq::vDimer<double>| 
+% C++ Signature: double QuanFloq::vDimer<double>::getT() const
+getTDefinition = addMethod(dvDimerDefinition, ...
+    "double QuanFloq::vDimer<double>::getT() const", ...
+    "Description", "clib.Dimer.QuanFloq.dvDimer.getT    Method of C++ class QuanFloq::vDimer<double>."); % Modify help description values as needed.
+defineOutput(getTDefinition, "RetVal", "double");
+validate(getTDefinition);
+
+%% C++ class method |setT| for C++ class |QuanFloq::vDimer<double>| 
+% C++ Signature: void QuanFloq::vDimer<double>::setT(double t)
+setTDefinition = addMethod(dvDimerDefinition, ...
+    "void QuanFloq::vDimer<double>::setT(double t)", ...
+    "Description", "clib.Dimer.QuanFloq.dvDimer.setT    Method of C++ class QuanFloq::vDimer<double>."); % Modify help description values as needed.
+defineArgument(setTDefinition, "t", "double");
+validate(setTDefinition);
+
+%% C++ class method |getV| for C++ class |QuanFloq::vDimer<double>| 
+% C++ Signature: double QuanFloq::vDimer<double>::getV() const
+getVDefinition = addMethod(dvDimerDefinition, ...
+    "double QuanFloq::vDimer<double>::getV() const", ...
+    "Description", "clib.Dimer.QuanFloq.dvDimer.getV    Method of C++ class QuanFloq::vDimer<double>."); % Modify help description values as needed.
+defineOutput(getVDefinition, "RetVal", "double");
+validate(getVDefinition);
+
+%% C++ class method |setV| for C++ class |QuanFloq::vDimer<double>| 
+% C++ Signature: void QuanFloq::vDimer<double>::setV(double v)
+setVDefinition = addMethod(dvDimerDefinition, ...
+    "void QuanFloq::vDimer<double>::setV(double v)", ...
+    "Description", "clib.Dimer.QuanFloq.dvDimer.setV    Method of C++ class QuanFloq::vDimer<double>."); % Modify help description values as needed.
+defineArgument(setVDefinition, "v", "double");
+validate(setVDefinition);
+
+%% C++ class method |getU| for C++ class |QuanFloq::vDimer<double>| 
+% C++ Signature: double QuanFloq::vDimer<double>::getU() const
+getUDefinition = addMethod(dvDimerDefinition, ...
+    "double QuanFloq::vDimer<double>::getU() const", ...
+    "Description", "clib.Dimer.QuanFloq.dvDimer.getU    Method of C++ class QuanFloq::vDimer<double>."); % Modify help description values as needed.
+defineOutput(getUDefinition, "RetVal", "double");
+validate(getUDefinition);
+
+%% C++ class method |setU| for C++ class |QuanFloq::vDimer<double>| 
+% C++ Signature: void QuanFloq::vDimer<double>::setU(double U)
+setUDefinition = addMethod(dvDimerDefinition, ...
+    "void QuanFloq::vDimer<double>::setU(double U)", ...
+    "Description", "clib.Dimer.QuanFloq.dvDimer.setU    Method of C++ class QuanFloq::vDimer<double>."); % Modify help description values as needed.
+defineArgument(setUDefinition, "U", "double");
+validate(setUDefinition);
+
+%% C++ class constructor for C++ class |QuanFloq::vDimer<double>| 
+% C++ Signature: QuanFloq::vDimer<double>::vDimer(QuanFloq::vDimer<double> const & input1)
+dvDimerConstructor1Definition = addConstructor(dvDimerDefinition, ...
+    "QuanFloq::vDimer<double>::vDimer(QuanFloq::vDimer<double> const & input1)", ...
+    "Description", "clib.Dimer.QuanFloq.dvDimer.vDimer    Constructor of C++ class QuanFloq::vDimer<double>."); % Modify help description values as needed.
+defineArgument(dvDimerConstructor1Definition, "input1", "clib.Dimer.QuanFloq.dvDimer", "input");
+validate(dvDimerConstructor1Definition);
+
+%% C++ class |QuanFloq::Dimer<double>| with MATLAB name |clib.Dimer.QuanFloq.dDimer| 
+dDimerDefinition = addClass(libDef, "QuanFloq::Dimer<double>", "MATLABName", "clib.Dimer.QuanFloq.dDimer", ...
+    "Description", "clib.Dimer.QuanFloq.dDimer    Representation of C++ class QuanFloq::Dimer<double>."); % Modify help description values as needed.
+
+%% C++ class constructor for C++ class |QuanFloq::Dimer<double>| 
+% C++ Signature: QuanFloq::Dimer<double>::Dimer(double v,double U,double t)
+dDimerConstructor1Definition = addConstructor(dDimerDefinition, ...
+    "QuanFloq::Dimer<double>::Dimer(double v,double U,double t)", ...
+    "Description", "clib.Dimer.QuanFloq.dDimer.Dimer    Constructor of C++ class QuanFloq::Dimer<double>."); % Modify help description values as needed.
+defineArgument(dDimerConstructor1Definition, "v", "double");
+defineArgument(dDimerConstructor1Definition, "U", "double");
+defineArgument(dDimerConstructor1Definition, "t", "double");
+validate(dDimerConstructor1Definition);
+
+%% C++ class constructor for C++ class |QuanFloq::Dimer<double>| 
+% C++ Signature: QuanFloq::Dimer<double>::Dimer(QuanFloq::Dimer<double> const & input1)
+dDimerConstructor2Definition = addConstructor(dDimerDefinition, ...
+    "QuanFloq::Dimer<double>::Dimer(QuanFloq::Dimer<double> const & input1)", ...
+    "Description", "clib.Dimer.QuanFloq.dDimer.Dimer    Constructor of C++ class QuanFloq::Dimer<double>."); % Modify help description values as needed.
+defineArgument(dDimerConstructor2Definition, "input1", "clib.Dimer.QuanFloq.dDimer", "input");
+validate(dDimerConstructor2Definition);
+
+%% C++ class |QuanFloq::vFloqHamil<double>| with MATLAB name |clib.Dimer.QuanFloq.dvFloqHamil| 
+dvFloqHamilDefinition = addClass(libDef, "QuanFloq::vFloqHamil<double>", "MATLABName", "clib.Dimer.QuanFloq.dvFloqHamil", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHamil    Representation of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+
+%% C++ class method |getW| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: double QuanFloq::vFloqHamil<double>::getW() const
+getWDefinition = addMethod(dvFloqHamilDefinition, ...
+    "double QuanFloq::vFloqHamil<double>::getW() const", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.getW    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+defineOutput(getWDefinition, "RetVal", "double");
+validate(getWDefinition);
+
+%% C++ class method |setW| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHamil<double>::setW(double tw,bool CalcS)
+setWDefinition = addMethod(dvFloqHamilDefinition, ...
+    "void QuanFloq::vFloqHamil<double>::setW(double tw,bool CalcS)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.setW    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+defineArgument(setWDefinition, "tw", "double");
+defineArgument(setWDefinition, "CalcS", "logical");
+validate(setWDefinition);
+
+%% C++ class method |setH| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHamil<double>::setH(double * tH,bool CalcS)
+%setHDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "void QuanFloq::vFloqHamil<double>::setH(double * tH,bool CalcS)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.setH    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(setHDefinition, "tH", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(setHDefinition, "CalcS", "logical");
+%validate(setHDefinition);
+
+%% C++ class method |setH| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHamil<double>::setH(double * tH)
+%setHDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "void QuanFloq::vFloqHamil<double>::setH(double * tH)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.setH    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(setHDefinition, "tH", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(setHDefinition);
+
+%% C++ class method |isCalcHf| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: bool QuanFloq::vFloqHamil<double>::isCalcHf() const
+isCalcHfDefinition = addMethod(dvFloqHamilDefinition, ...
+    "bool QuanFloq::vFloqHamil<double>::isCalcHf() const", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.isCalcHf    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+defineOutput(isCalcHfDefinition, "RetVal", "logical");
+validate(isCalcHfDefinition);
+
+%% C++ class method |setCalcHf| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHamil<double>::setCalcHf(bool calcHf)
+setCalcHfDefinition = addMethod(dvFloqHamilDefinition, ...
+    "void QuanFloq::vFloqHamil<double>::setCalcHf(bool calcHf)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.setCalcHf    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+defineArgument(setCalcHfDefinition, "calcHf", "logical");
+validate(setCalcHfDefinition);
+
+%% C++ class method |Initialize| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHamil<double>::Initialize()
+InitializeDefinition = addMethod(dvFloqHamilDefinition, ...
+    "void QuanFloq::vFloqHamil<double>::Initialize()", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.Initialize    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+validate(InitializeDefinition);
+
+%% C++ class method |Initialize| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHamil<double>::Initialize(double * tH,double tw)
+%InitializeDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "void QuanFloq::vFloqHamil<double>::Initialize(double * tH,double tw)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.Initialize    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(InitializeDefinition, "tH", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(InitializeDefinition, "tw", "double");
+%validate(InitializeDefinition);
+
+%% C++ class method |HPsi| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: double * QuanFloq::vFloqHamil<double>::HPsi(double * tPsi)
+%HPsiDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "double * QuanFloq::vFloqHamil<double>::HPsi(double * tPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.HPsi    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(HPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineOutput(HPsiDefinition, "RetVal", "double", <SHAPE>);
+%validate(HPsiDefinition);
+
+%% C++ class method |PsiHPsi| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: double QuanFloq::vFloqHamil<double>::PsiHPsi(double * tPsi)
+%PsiHPsiDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "double QuanFloq::vFloqHamil<double>::PsiHPsi(double * tPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.PsiHPsi    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(PsiHPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineOutput(PsiHPsiDefinition, "RetVal", "double");
+%validate(PsiHPsiDefinition);
+
+%% C++ class method |Overlap| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: double QuanFloq::vFloqHamil<double>::Overlap(double * Bra,double * Ket)
+%OverlapDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "double QuanFloq::vFloqHamil<double>::Overlap(double * Bra,double * Ket)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.Overlap    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(OverlapDefinition, "Bra", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(OverlapDefinition, "Ket", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineOutput(OverlapDefinition, "RetVal", "double");
+%validate(OverlapDefinition);
+
+%% C++ class method |NormalizePsi| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHamil<double>::NormalizePsi(double * tPsi,bool FlagNorm)
+%NormalizePsiDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "void QuanFloq::vFloqHamil<double>::NormalizePsi(double * tPsi,bool FlagNorm)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.NormalizePsi    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(NormalizePsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(NormalizePsiDefinition, "FlagNorm", "logical");
+%validate(NormalizePsiDefinition);
+
+%% C++ class method |CalcSH| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHamil<double>::CalcSH()
+CalcSHDefinition = addMethod(dvFloqHamilDefinition, ...
+    "void QuanFloq::vFloqHamil<double>::CalcSH()", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.CalcSH    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+validate(CalcSHDefinition);
+
+%% C++ class method |CalcSHf| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHamil<double>::CalcSHf()
+CalcSHfDefinition = addMethod(dvFloqHamilDefinition, ...
+    "void QuanFloq::vFloqHamil<double>::CalcSHf()", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.CalcSHf    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+validate(CalcSHfDefinition);
+
+%% C++ class method |getH| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: double const * QuanFloq::vFloqHamil<double>::getH(int m,int n,int nf) const
+%getHDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "double const * QuanFloq::vFloqHamil<double>::getH(int m,int n,int nf) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.getH    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(getHDefinition, "m", "int32");
+%defineArgument(getHDefinition, "n", "int32");
+%defineArgument(getHDefinition, "nf", "int32");
+%defineOutput(getHDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getHDefinition);
+
+%% C++ class method |getH| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: double const * QuanFloq::vFloqHamil<double>::getH(int m,int n) const
+%getHDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "double const * QuanFloq::vFloqHamil<double>::getH(int m,int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.getH    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(getHDefinition, "m", "int32");
+%defineArgument(getHDefinition, "n", "int32");
+%defineOutput(getHDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getHDefinition);
+
+%% C++ class method |getPsi| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: double const * QuanFloq::vFloqHamil<double>::getPsi(int m,int n) const
+%getPsiDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "double const * QuanFloq::vFloqHamil<double>::getPsi(int m,int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.getPsi    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(getPsiDefinition, "m", "int32");
+%defineArgument(getPsiDefinition, "n", "int32");
+%defineOutput(getPsiDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getPsiDefinition);
+
+%% C++ class method |getE| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: double const * QuanFloq::vFloqHamil<double>::getE(int n) const
+%getEDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "double const * QuanFloq::vFloqHamil<double>::getE(int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.getE    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(getEDefinition, "n", "int32");
+%defineOutput(getEDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getEDefinition);
+
+%% C++ class method |Overlap| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: double QuanFloq::vFloqHamil<double>::Overlap(double * Bra,double * Ket,int n)
+%OverlapDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "double QuanFloq::vFloqHamil<double>::Overlap(double * Bra,double * Ket,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.Overlap    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(OverlapDefinition, "Bra", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(OverlapDefinition, "Ket", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(OverlapDefinition, "n", "int32");
+%defineOutput(OverlapDefinition, "RetVal", "double");
+%validate(OverlapDefinition);
+
+%% C++ class method |NormalizePsi| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHamil<double>::NormalizePsi(double * tPsi,int n,bool FlagNorm)
+%NormalizePsiDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "void QuanFloq::vFloqHamil<double>::NormalizePsi(double * tPsi,int n,bool FlagNorm)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.NormalizePsi    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(NormalizePsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(NormalizePsiDefinition, "n", "int32");
+%defineArgument(NormalizePsiDefinition, "FlagNorm", "logical");
+%validate(NormalizePsiDefinition);
+
+%% C++ class method |HPsi| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHamil<double>::HPsi(double * tPsi,double * tHPsi,int m,int n)
+%HPsiDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "void QuanFloq::vFloqHamil<double>::HPsi(double * tPsi,double * tHPsi,int m,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.HPsi    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(HPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(HPsiDefinition, "tHPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(HPsiDefinition, "m", "int32");
+%defineArgument(HPsiDefinition, "n", "int32");
+%validate(HPsiDefinition);
+
+%% C++ class method |PsiHPsi| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHamil<double>::PsiHPsi(double * tPsi,double * tE,double * tHPsi,int m,int n)
+%PsiHPsiDefinition = addMethod(dvFloqHamilDefinition, ...
+%    "void QuanFloq::vFloqHamil<double>::PsiHPsi(double * tPsi,double * tE,double * tHPsi,int m,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.PsiHPsi    Method of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+%defineArgument(PsiHPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tE", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tHPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "m", "int32");
+%defineArgument(PsiHPsiDefinition, "n", "int32");
+%validate(PsiHPsiDefinition);
+
+%% C++ class constructor for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: QuanFloq::vFloqHamil<double>::vFloqHamil(QuanFloq::vFloqHamil<double> const & input1)
+dvFloqHamilConstructor1Definition = addConstructor(dvFloqHamilDefinition, ...
+    "QuanFloq::vFloqHamil<double>::vFloqHamil(QuanFloq::vFloqHamil<double> const & input1)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHamil.vFloqHamil    Constructor of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+defineArgument(dvFloqHamilConstructor1Definition, "input1", "clib.Dimer.QuanFloq.dvFloqHamil", "input");
+validate(dvFloqHamilConstructor1Definition);
+
+%% C++ class public data member |nFH| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: int const QuanFloq::vFloqHamil<double>::nFH
+addProperty(dvFloqHamilDefinition, "nFH", "int32", ...
+    "Description", "int32    read-only Data member of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+
+%% C++ class public data member |nF_max| for C++ class |QuanFloq::vFloqHamil<double>| 
+% C++ Signature: int const QuanFloq::vFloqHamil<double>::nF_max
+addProperty(dvFloqHamilDefinition, "nF_max", "int32", ...
+    "Description", "int32    read-only Data member of C++ class QuanFloq::vFloqHamil<double>."); % Modify help description values as needed.
+
+%% C++ class |QuanFloq::vFloqDimer<double>| with MATLAB name |clib.Dimer.QuanFloq.dvFloqDimer| 
+dvFloqDimerDefinition = addClass(libDef, "QuanFloq::vFloqDimer<double>", "MATLABName", "clib.Dimer.QuanFloq.dvFloqDimer", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqDimer    Representation of C++ class QuanFloq::vFloqDimer<double>."); % Modify help description values as needed.
+
+%% C++ class method |setT| for C++ class |QuanFloq::vFloqDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqDimer<double>::setT(double t,bool CalcS)
+setTDefinition = addMethod(dvFloqDimerDefinition, ...
+    "void QuanFloq::vFloqDimer<double>::setT(double t,bool CalcS)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqDimer.setT    Method of C++ class QuanFloq::vFloqDimer<double>."); % Modify help description values as needed.
+defineArgument(setTDefinition, "t", "double");
+defineArgument(setTDefinition, "CalcS", "logical");
+validate(setTDefinition);
+
+%% C++ class method |getV0| for C++ class |QuanFloq::vFloqDimer<double>| 
+% C++ Signature: double QuanFloq::vFloqDimer<double>::getV0() const
+getV0Definition = addMethod(dvFloqDimerDefinition, ...
+    "double QuanFloq::vFloqDimer<double>::getV0() const", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqDimer.getV0    Method of C++ class QuanFloq::vFloqDimer<double>."); % Modify help description values as needed.
+defineOutput(getV0Definition, "RetVal", "double");
+validate(getV0Definition);
+
+%% C++ class method |setV0| for C++ class |QuanFloq::vFloqDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqDimer<double>::setV0(double v0,bool CalcS)
+setV0Definition = addMethod(dvFloqDimerDefinition, ...
+    "void QuanFloq::vFloqDimer<double>::setV0(double v0,bool CalcS)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqDimer.setV0    Method of C++ class QuanFloq::vFloqDimer<double>."); % Modify help description values as needed.
+defineArgument(setV0Definition, "v0", "double");
+defineArgument(setV0Definition, "CalcS", "logical");
+validate(setV0Definition);
+
+%% C++ class method |getV1| for C++ class |QuanFloq::vFloqDimer<double>| 
+% C++ Signature: double QuanFloq::vFloqDimer<double>::getV1() const
+getV1Definition = addMethod(dvFloqDimerDefinition, ...
+    "double QuanFloq::vFloqDimer<double>::getV1() const", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqDimer.getV1    Method of C++ class QuanFloq::vFloqDimer<double>."); % Modify help description values as needed.
+defineOutput(getV1Definition, "RetVal", "double");
+validate(getV1Definition);
+
+%% C++ class method |setV1| for C++ class |QuanFloq::vFloqDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqDimer<double>::setV1(double v1,bool CalcS)
+setV1Definition = addMethod(dvFloqDimerDefinition, ...
+    "void QuanFloq::vFloqDimer<double>::setV1(double v1,bool CalcS)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqDimer.setV1    Method of C++ class QuanFloq::vFloqDimer<double>."); % Modify help description values as needed.
+defineArgument(setV1Definition, "v1", "double");
+defineArgument(setV1Definition, "CalcS", "logical");
+validate(setV1Definition);
+
+%% C++ class method |setU| for C++ class |QuanFloq::vFloqDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqDimer<double>::setU(double U,bool CalcS)
+setUDefinition = addMethod(dvFloqDimerDefinition, ...
+    "void QuanFloq::vFloqDimer<double>::setU(double U,bool CalcS)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqDimer.setU    Method of C++ class QuanFloq::vFloqDimer<double>."); % Modify help description values as needed.
+defineArgument(setUDefinition, "U", "double");
+defineArgument(setUDefinition, "CalcS", "logical");
+validate(setUDefinition);
+
+%% C++ class method |setT| for C++ class |QuanFloq::vFloqDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqDimer<double>::setT(double t)
+setTDefinition = addMethod(dvFloqDimerDefinition, ...
+    "void QuanFloq::vFloqDimer<double>::setT(double t)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqDimer.setT    Method of C++ class QuanFloq::vFloqDimer<double>."); % Modify help description values as needed.
+defineArgument(setTDefinition, "t", "double");
+validate(setTDefinition);
+
+%% C++ class method |setV| for C++ class |QuanFloq::vFloqDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqDimer<double>::setV(double v0)
+setVDefinition = addMethod(dvFloqDimerDefinition, ...
+    "void QuanFloq::vFloqDimer<double>::setV(double v0)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqDimer.setV    Method of C++ class QuanFloq::vFloqDimer<double>."); % Modify help description values as needed.
+defineArgument(setVDefinition, "v0", "double");
+validate(setVDefinition);
+
+%% C++ class method |setU| for C++ class |QuanFloq::vFloqDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqDimer<double>::setU(double U)
+setUDefinition = addMethod(dvFloqDimerDefinition, ...
+    "void QuanFloq::vFloqDimer<double>::setU(double U)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqDimer.setU    Method of C++ class QuanFloq::vFloqDimer<double>."); % Modify help description values as needed.
+defineArgument(setUDefinition, "U", "double");
+validate(setUDefinition);
+
+%% C++ class constructor for C++ class |QuanFloq::vFloqDimer<double>| 
+% C++ Signature: QuanFloq::vFloqDimer<double>::vFloqDimer(QuanFloq::vFloqDimer<double> const & input1)
+dvFloqDimerConstructor1Definition = addConstructor(dvFloqDimerDefinition, ...
+    "QuanFloq::vFloqDimer<double>::vFloqDimer(QuanFloq::vFloqDimer<double> const & input1)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqDimer.vFloqDimer    Constructor of C++ class QuanFloq::vFloqDimer<double>."); % Modify help description values as needed.
+defineArgument(dvFloqDimerConstructor1Definition, "input1", "clib.Dimer.QuanFloq.dvFloqDimer", "input");
+validate(dvFloqDimerConstructor1Definition);
+
+%% C++ class |QuanFloq::FloqDimer<double>| with MATLAB name |clib.Dimer.QuanFloq.dFloqDimer| 
+dFloqDimerDefinition = addClass(libDef, "QuanFloq::FloqDimer<double>", "MATLABName", "clib.Dimer.QuanFloq.dFloqDimer", ...
+    "Description", "clib.Dimer.QuanFloq.dFloqDimer    Representation of C++ class QuanFloq::FloqDimer<double>."); % Modify help description values as needed.
+
+%% C++ class constructor for C++ class |QuanFloq::FloqDimer<double>| 
+% C++ Signature: QuanFloq::FloqDimer<double>::FloqDimer(int nF_max,double v0,double v1,double U,double w,double t)
+dFloqDimerConstructor1Definition = addConstructor(dFloqDimerDefinition, ...
+    "QuanFloq::FloqDimer<double>::FloqDimer(int nF_max,double v0,double v1,double U,double w,double t)", ...
+    "Description", "clib.Dimer.QuanFloq.dFloqDimer.FloqDimer    Constructor of C++ class QuanFloq::FloqDimer<double>."); % Modify help description values as needed.
+defineArgument(dFloqDimerConstructor1Definition, "nF_max", "int32");
+defineArgument(dFloqDimerConstructor1Definition, "v0", "double");
+defineArgument(dFloqDimerConstructor1Definition, "v1", "double");
+defineArgument(dFloqDimerConstructor1Definition, "U", "double");
+defineArgument(dFloqDimerConstructor1Definition, "w", "double");
+defineArgument(dFloqDimerConstructor1Definition, "t", "double");
+validate(dFloqDimerConstructor1Definition);
+
+%% C++ class constructor for C++ class |QuanFloq::FloqDimer<double>| 
+% C++ Signature: QuanFloq::FloqDimer<double>::FloqDimer(QuanFloq::FloqDimer<double> const & input1)
+dFloqDimerConstructor2Definition = addConstructor(dFloqDimerDefinition, ...
+    "QuanFloq::FloqDimer<double>::FloqDimer(QuanFloq::FloqDimer<double> const & input1)", ...
+    "Description", "clib.Dimer.QuanFloq.dFloqDimer.FloqDimer    Constructor of C++ class QuanFloq::FloqDimer<double>."); % Modify help description values as needed.
+defineArgument(dFloqDimerConstructor2Definition, "input1", "clib.Dimer.QuanFloq.dFloqDimer", "input");
+validate(dFloqDimerConstructor2Definition);
+
+%% C++ class |QuanFloq::vHFHamil<double>| with MATLAB name |clib.Dimer.QuanFloq.dvHFHamil| 
+dvHFHamilDefinition = addClass(libDef, "QuanFloq::vHFHamil<double>", "MATLABName", "clib.Dimer.QuanFloq.dvHFHamil", ...
+    "Description", "clib.Dimer.QuanFloq.dvHFHamil    Representation of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+
+%% C++ class method |geth| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: double const * QuanFloq::vHFHamil<double>::geth() const
+%gethDefinition = addMethod(dvHFHamilDefinition, ...
+%    "double const * QuanFloq::vHFHamil<double>::geth() const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.geth    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineOutput(gethDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(gethDefinition);
+
+%% C++ class method |seth| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::seth(double * th)
+%sethDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::seth(double * th)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.seth    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(sethDefinition, "th", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(sethDefinition);
+
+%% C++ class method |getUEx| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: double * QuanFloq::vHFHamil<double>::getUEx(double * tPsi)
+%getUExDefinition = addMethod(dvHFHamilDefinition, ...
+%    "double * QuanFloq::vHFHamil<double>::getUEx(double * tPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.getUEx    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getUExDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineOutput(getUExDefinition, "RetVal", "double", <SHAPE>);
+%validate(getUExDefinition);
+
+%% C++ class method |getUEx| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::getUEx(double * tUEx,double * tPsi)
+%getUExDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::getUEx(double * tUEx,double * tPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.getUEx    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getUExDefinition, "tUEx", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(getUExDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(getUExDefinition);
+
+%% C++ class method |Initialize| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::Initialize(double * h,double * UEx,double Tresh)
+%InitializeDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::Initialize(double * h,double * UEx,double Tresh)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.Initialize    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(InitializeDefinition, "h", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(InitializeDefinition, "UEx", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(InitializeDefinition, "Tresh", "double");
+%validate(InitializeDefinition);
+
+%% C++ class method |HPsi| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::HPsi(double * tPsi,double * tHPsi,bool tupdateH)
+%HPsiDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::HPsi(double * tPsi,double * tHPsi,bool tupdateH)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.HPsi    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(HPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(HPsiDefinition, "tHPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(HPsiDefinition, "tupdateH", "logical");
+%validate(HPsiDefinition);
+
+%% C++ class method |PsiHPsi| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::PsiHPsi(double * tPsi,double * tE,double * tHPsi,bool tupdateH)
+%PsiHPsiDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::PsiHPsi(double * tPsi,double * tE,double * tHPsi,bool tupdateH)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.PsiHPsi    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(PsiHPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tE", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tHPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tupdateH", "logical");
+%validate(PsiHPsiDefinition);
+
+%% C++ class method |CalcUEx| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::CalcUEx(double * tPsi,double * acc)
+%CalcUExDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::CalcUEx(double * tPsi,double * acc)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.CalcUEx    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(CalcUExDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(CalcUExDefinition, "acc", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(CalcUExDefinition);
+
+%% C++ class method |UpdateH| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::UpdateH(double * tPsi)
+%UpdateHDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::UpdateH(double * tPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.UpdateH    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(UpdateHDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(UpdateHDefinition);
+
+%% C++ class method |UpdateH| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: static void QuanFloq::vHFHamil<double>::UpdateH(QuanFloq::vHamil<double> * Hamil,double * tPsi)
+%UpdateHDefinition = addMethod(dvHFHamilDefinition, ...
+%    "static void QuanFloq::vHFHamil<double>::UpdateH(QuanFloq::vHamil<double> * Hamil,double * tPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.UpdateH    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(UpdateHDefinition, "Hamil", "clib.Dimer.QuanFloq.dvHamil", "input", <SHAPE>); % '<MLTYPE>' can be clib.Dimer.QuanFloq.dvHamil, or clib.array.Dimer.QuanFloq.dvHamil
+%defineArgument(UpdateHDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(UpdateHDefinition);
+
+%% C++ class method |geth| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: double const * QuanFloq::vHFHamil<double>::geth(int m,int n) const
+%gethDefinition = addMethod(dvHFHamilDefinition, ...
+%    "double const * QuanFloq::vHFHamil<double>::geth(int m,int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.geth    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(gethDefinition, "m", "int32");
+%defineArgument(gethDefinition, "n", "int32");
+%defineOutput(gethDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(gethDefinition);
+
+%% C++ class method |getUEx| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::getUEx(double * tUEx,int m,int n)
+%getUExDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::getUEx(double * tUEx,int m,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.getUEx    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getUExDefinition, "tUEx", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(getUExDefinition, "m", "int32");
+%defineArgument(getUExDefinition, "n", "int32");
+%validate(getUExDefinition);
+
+%% C++ class method |getUEx| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::getUEx(double * tUEx,double * tPsi,int m,int n,int mPsi,int nPsi)
+%getUExDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::getUEx(double * tUEx,double * tPsi,int m,int n,int mPsi,int nPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.getUEx    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getUExDefinition, "tUEx", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(getUExDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(getUExDefinition, "m", "int32");
+%defineArgument(getUExDefinition, "n", "int32");
+%defineArgument(getUExDefinition, "mPsi", "int32");
+%defineArgument(getUExDefinition, "nPsi", "int32");
+%validate(getUExDefinition);
+
+%% C++ class method |UpdateH| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::UpdateH(double * tPsi,int m,int n)
+%UpdateHDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::UpdateH(double * tPsi,int m,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.UpdateH    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(UpdateHDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(UpdateHDefinition, "m", "int32");
+%defineArgument(UpdateHDefinition, "n", "int32");
+%validate(UpdateHDefinition);
+
+%% C++ class method |getH| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: double const * QuanFloq::vHFHamil<double>::getH(int m,int n) const
+%getHDefinition = addMethod(dvHFHamilDefinition, ...
+%    "double const * QuanFloq::vHFHamil<double>::getH(int m,int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.getH    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getHDefinition, "m", "int32");
+%defineArgument(getHDefinition, "n", "int32");
+%defineOutput(getHDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getHDefinition);
+
+%% C++ class method |getPsi| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: double const * QuanFloq::vHFHamil<double>::getPsi(int m,int n) const
+%getPsiDefinition = addMethod(dvHFHamilDefinition, ...
+%    "double const * QuanFloq::vHFHamil<double>::getPsi(int m,int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.getPsi    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getPsiDefinition, "m", "int32");
+%defineArgument(getPsiDefinition, "n", "int32");
+%defineOutput(getPsiDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getPsiDefinition);
+
+%% C++ class method |getE| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: double const * QuanFloq::vHFHamil<double>::getE(int n) const
+%getEDefinition = addMethod(dvHFHamilDefinition, ...
+%    "double const * QuanFloq::vHFHamil<double>::getE(int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.getE    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getEDefinition, "n", "int32");
+%defineOutput(getEDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getEDefinition);
+
+%% C++ class method |Overlap| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: double QuanFloq::vHFHamil<double>::Overlap(double * Bra,double * Ket,int n)
+%OverlapDefinition = addMethod(dvHFHamilDefinition, ...
+%    "double QuanFloq::vHFHamil<double>::Overlap(double * Bra,double * Ket,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.Overlap    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(OverlapDefinition, "Bra", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(OverlapDefinition, "Ket", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(OverlapDefinition, "n", "int32");
+%defineOutput(OverlapDefinition, "RetVal", "double");
+%validate(OverlapDefinition);
+
+%% C++ class method |NormalizePsi| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::NormalizePsi(double * tPsi,int n,bool FlagNorm)
+%NormalizePsiDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::NormalizePsi(double * tPsi,int n,bool FlagNorm)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.NormalizePsi    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(NormalizePsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(NormalizePsiDefinition, "n", "int32");
+%defineArgument(NormalizePsiDefinition, "FlagNorm", "logical");
+%validate(NormalizePsiDefinition);
+
+%% C++ class method |HPsi| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::HPsi(double * tPsi,double * tHPsi,int m,int n)
+%HPsiDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::HPsi(double * tPsi,double * tHPsi,int m,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.HPsi    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(HPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(HPsiDefinition, "tHPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(HPsiDefinition, "m", "int32");
+%defineArgument(HPsiDefinition, "n", "int32");
+%validate(HPsiDefinition);
+
+%% C++ class method |PsiHPsi| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: void QuanFloq::vHFHamil<double>::PsiHPsi(double * tPsi,double * tE,double * tHPsi,int m,int n)
+%PsiHPsiDefinition = addMethod(dvHFHamilDefinition, ...
+%    "void QuanFloq::vHFHamil<double>::PsiHPsi(double * tPsi,double * tE,double * tHPsi,int m,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvHFHamil.PsiHPsi    Method of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(PsiHPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tE", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tHPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "m", "int32");
+%defineArgument(PsiHPsiDefinition, "n", "int32");
+%validate(PsiHPsiDefinition);
+
+%% C++ class constructor for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: QuanFloq::vHFHamil<double>::vHFHamil(QuanFloq::vHFHamil<double> const & input1)
+dvHFHamilConstructor1Definition = addConstructor(dvHFHamilDefinition, ...
+    "QuanFloq::vHFHamil<double>::vHFHamil(QuanFloq::vHFHamil<double> const & input1)", ...
+    "Description", "clib.Dimer.QuanFloq.dvHFHamil.vHFHamil    Constructor of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+defineArgument(dvHFHamilConstructor1Definition, "input1", "clib.Dimer.QuanFloq.dvHFHamil", "input");
+validate(dvHFHamilConstructor1Definition);
+
+%% C++ class public data member |nElec| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: int const QuanFloq::vHFHamil<double>::nElec
+addProperty(dvHFHamilDefinition, "nElec", "int32", ...
+    "Description", "int32    read-only Data member of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+
+%% C++ class public data member |nOrb| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: int const QuanFloq::vHFHamil<double>::nOrb
+addProperty(dvHFHamilDefinition, "nOrb", "int32", ...
+    "Description", "int32    read-only Data member of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+
+%% C++ class public data member |nUEx| for C++ class |QuanFloq::vHFHamil<double>| 
+% C++ Signature: int QuanFloq::vHFHamil<double>::nUEx
+addProperty(dvHFHamilDefinition, "nUEx", "int32", ...
+    "Description", "int32    Data member of C++ class QuanFloq::vHFHamil<double>."); % Modify help description values as needed.
+
+%% C++ class |QuanFloq::vHFDimer<double>| with MATLAB name |clib.Dimer.QuanFloq.dvHFDimer| 
+dvHFDimerDefinition = addClass(libDef, "QuanFloq::vHFDimer<double>", "MATLABName", "clib.Dimer.QuanFloq.dvHFDimer", ...
+    "Description", "clib.Dimer.QuanFloq.dvHFDimer    Representation of C++ class QuanFloq::vHFDimer<double>."); % Modify help description values as needed.
+
+%% C++ class method |setT| for C++ class |QuanFloq::vHFDimer<double>| 
+% C++ Signature: void QuanFloq::vHFDimer<double>::setT(double t)
+setTDefinition = addMethod(dvHFDimerDefinition, ...
+    "void QuanFloq::vHFDimer<double>::setT(double t)", ...
+    "Description", "clib.Dimer.QuanFloq.dvHFDimer.setT    Method of C++ class QuanFloq::vHFDimer<double>."); % Modify help description values as needed.
+defineArgument(setTDefinition, "t", "double");
+validate(setTDefinition);
+
+%% C++ class method |setV| for C++ class |QuanFloq::vHFDimer<double>| 
+% C++ Signature: void QuanFloq::vHFDimer<double>::setV(double v)
+setVDefinition = addMethod(dvHFDimerDefinition, ...
+    "void QuanFloq::vHFDimer<double>::setV(double v)", ...
+    "Description", "clib.Dimer.QuanFloq.dvHFDimer.setV    Method of C++ class QuanFloq::vHFDimer<double>."); % Modify help description values as needed.
+defineArgument(setVDefinition, "v", "double");
+validate(setVDefinition);
+
+%% C++ class method |setU| for C++ class |QuanFloq::vHFDimer<double>| 
+% C++ Signature: void QuanFloq::vHFDimer<double>::setU(double U)
+setUDefinition = addMethod(dvHFDimerDefinition, ...
+    "void QuanFloq::vHFDimer<double>::setU(double U)", ...
+    "Description", "clib.Dimer.QuanFloq.dvHFDimer.setU    Method of C++ class QuanFloq::vHFDimer<double>."); % Modify help description values as needed.
+defineArgument(setUDefinition, "U", "double");
+validate(setUDefinition);
+
+%% C++ class constructor for C++ class |QuanFloq::vHFDimer<double>| 
+% C++ Signature: QuanFloq::vHFDimer<double>::vHFDimer(QuanFloq::vHFDimer<double> const & input1)
+dvHFDimerConstructor1Definition = addConstructor(dvHFDimerDefinition, ...
+    "QuanFloq::vHFDimer<double>::vHFDimer(QuanFloq::vHFDimer<double> const & input1)", ...
+    "Description", "clib.Dimer.QuanFloq.dvHFDimer.vHFDimer    Constructor of C++ class QuanFloq::vHFDimer<double>."); % Modify help description values as needed.
+defineArgument(dvHFDimerConstructor1Definition, "input1", "clib.Dimer.QuanFloq.dvHFDimer", "input");
+validate(dvHFDimerConstructor1Definition);
+
+%% C++ class |QuanFloq::HFDimer<double>| with MATLAB name |clib.Dimer.QuanFloq.dHFDimer| 
+dHFDimerDefinition = addClass(libDef, "QuanFloq::HFDimer<double>", "MATLABName", "clib.Dimer.QuanFloq.dHFDimer", ...
+    "Description", "clib.Dimer.QuanFloq.dHFDimer    Representation of C++ class QuanFloq::HFDimer<double>."); % Modify help description values as needed.
+
+%% C++ class constructor for C++ class |QuanFloq::HFDimer<double>| 
+% C++ Signature: QuanFloq::HFDimer<double>::HFDimer(double v,double U,double t)
+dHFDimerConstructor1Definition = addConstructor(dHFDimerDefinition, ...
+    "QuanFloq::HFDimer<double>::HFDimer(double v,double U,double t)", ...
+    "Description", "clib.Dimer.QuanFloq.dHFDimer.HFDimer    Constructor of C++ class QuanFloq::HFDimer<double>."); % Modify help description values as needed.
+defineArgument(dHFDimerConstructor1Definition, "v", "double");
+defineArgument(dHFDimerConstructor1Definition, "U", "double");
+defineArgument(dHFDimerConstructor1Definition, "t", "double");
+validate(dHFDimerConstructor1Definition);
+
+%% C++ class constructor for C++ class |QuanFloq::HFDimer<double>| 
+% C++ Signature: QuanFloq::HFDimer<double>::HFDimer(QuanFloq::HFDimer<double> const & input1)
+dHFDimerConstructor2Definition = addConstructor(dHFDimerDefinition, ...
+    "QuanFloq::HFDimer<double>::HFDimer(QuanFloq::HFDimer<double> const & input1)", ...
+    "Description", "clib.Dimer.QuanFloq.dHFDimer.HFDimer    Constructor of C++ class QuanFloq::HFDimer<double>."); % Modify help description values as needed.
+defineArgument(dHFDimerConstructor2Definition, "input1", "clib.Dimer.QuanFloq.dHFDimer", "input");
+validate(dHFDimerConstructor2Definition);
+
+%% C++ class |QuanFloq::vFloqHFHamil<double>| with MATLAB name |clib.Dimer.QuanFloq.dvFloqHFHamil| 
+dvFloqHFHamilDefinition = addClass(libDef, "QuanFloq::vFloqHFHamil<double>", "MATLABName", "clib.Dimer.QuanFloq.dvFloqHFHamil", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil    Representation of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+
+%% C++ class method |seth| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHFHamil<double>::seth(double * th)
+%sethDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "void QuanFloq::vFloqHFHamil<double>::seth(double * th)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.seth    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(sethDefinition, "th", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(sethDefinition);
+
+%% C++ class method |getUEx| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: double * QuanFloq::vFloqHFHamil<double>::getUEx(double * tPsi)
+%getUExDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "double * QuanFloq::vFloqHFHamil<double>::getUEx(double * tPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.getUEx    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getUExDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineOutput(getUExDefinition, "RetVal", "double", <SHAPE>);
+%validate(getUExDefinition);
+
+%% C++ class method |getUEx| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHFHamil<double>::getUEx(double * tUEx,double * tPsi)
+%getUExDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "void QuanFloq::vFloqHFHamil<double>::getUEx(double * tUEx,double * tPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.getUEx    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getUExDefinition, "tUEx", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(getUExDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(getUExDefinition);
+
+%% C++ class method |CalcCsr_nUEx_max| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: int QuanFloq::vFloqHFHamil<double>::CalcCsr_nUEx_max()
+CalcCsr_nUEx_maxDefinition = addMethod(dvFloqHFHamilDefinition, ...
+    "int QuanFloq::vFloqHFHamil<double>::CalcCsr_nUEx_max()", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.CalcCsr_nUEx_max    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+defineOutput(CalcCsr_nUEx_maxDefinition, "RetVal", "int32");
+validate(CalcCsr_nUEx_maxDefinition);
+
+%% C++ class method |Initialize| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHFHamil<double>::Initialize()
+InitializeDefinition = addMethod(dvFloqHFHamilDefinition, ...
+    "void QuanFloq::vFloqHFHamil<double>::Initialize()", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.Initialize    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+validate(InitializeDefinition);
+
+%% C++ class method |Initialize| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHFHamil<double>::Initialize(double * h,double w,double * UEx,double Tresh)
+%InitializeDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "void QuanFloq::vFloqHFHamil<double>::Initialize(double * h,double w,double * UEx,double Tresh)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.Initialize    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(InitializeDefinition, "h", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(InitializeDefinition, "w", "double");
+%defineArgument(InitializeDefinition, "UEx", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(InitializeDefinition, "Tresh", "double");
+%validate(InitializeDefinition);
+
+%% C++ class method |UpdateH| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHFHamil<double>::UpdateH(double * tPsi)
+%UpdateHDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "void QuanFloq::vFloqHFHamil<double>::UpdateH(double * tPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.UpdateH    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(UpdateHDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%validate(UpdateHDefinition);
+
+%% C++ class method |CalcSH_UEx| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHFHamil<double>::CalcSH_UEx()
+CalcSH_UExDefinition = addMethod(dvFloqHFHamilDefinition, ...
+    "void QuanFloq::vFloqHFHamil<double>::CalcSH_UEx()", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.CalcSH_UEx    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+validate(CalcSH_UExDefinition);
+
+%% C++ class method |geth| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: double const * QuanFloq::vFloqHFHamil<double>::geth(int m,int n,int nf) const
+%gethDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "double const * QuanFloq::vFloqHFHamil<double>::geth(int m,int n,int nf) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.geth    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(gethDefinition, "m", "int32");
+%defineArgument(gethDefinition, "n", "int32");
+%defineArgument(gethDefinition, "nf", "int32");
+%defineOutput(gethDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(gethDefinition);
+
+%% C++ class method |geth| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: double const * QuanFloq::vFloqHFHamil<double>::geth(int m,int n) const
+%gethDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "double const * QuanFloq::vFloqHFHamil<double>::geth(int m,int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.geth    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(gethDefinition, "m", "int32");
+%defineArgument(gethDefinition, "n", "int32");
+%defineOutput(gethDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(gethDefinition);
+
+%% C++ class method |getUEx| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHFHamil<double>::getUEx(double * tUEx,int m,int n)
+%getUExDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "void QuanFloq::vFloqHFHamil<double>::getUEx(double * tUEx,int m,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.getUEx    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getUExDefinition, "tUEx", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(getUExDefinition, "m", "int32");
+%defineArgument(getUExDefinition, "n", "int32");
+%validate(getUExDefinition);
+
+%% C++ class method |getUEx| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHFHamil<double>::getUEx(double * tUEx,double * tPsi,int m,int n,int mPsi,int nPsi)
+%getUExDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "void QuanFloq::vFloqHFHamil<double>::getUEx(double * tUEx,double * tPsi,int m,int n,int mPsi,int nPsi)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.getUEx    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getUExDefinition, "tUEx", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(getUExDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(getUExDefinition, "m", "int32");
+%defineArgument(getUExDefinition, "n", "int32");
+%defineArgument(getUExDefinition, "mPsi", "int32");
+%defineArgument(getUExDefinition, "nPsi", "int32");
+%validate(getUExDefinition);
+
+%% C++ class method |UpdateH| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHFHamil<double>::UpdateH(double * tPsi,int m,int n)
+%UpdateHDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "void QuanFloq::vFloqHFHamil<double>::UpdateH(double * tPsi,int m,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.UpdateH    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(UpdateHDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(UpdateHDefinition, "m", "int32");
+%defineArgument(UpdateHDefinition, "n", "int32");
+%validate(UpdateHDefinition);
+
+%% C++ class method |getH| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: double const * QuanFloq::vFloqHFHamil<double>::getH(int m,int n,int nf) const
+%getHDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "double const * QuanFloq::vFloqHFHamil<double>::getH(int m,int n,int nf) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.getH    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getHDefinition, "m", "int32");
+%defineArgument(getHDefinition, "n", "int32");
+%defineArgument(getHDefinition, "nf", "int32");
+%defineOutput(getHDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getHDefinition);
+
+%% C++ class method |getH| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: double const * QuanFloq::vFloqHFHamil<double>::getH(int m,int n) const
+%getHDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "double const * QuanFloq::vFloqHFHamil<double>::getH(int m,int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.getH    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getHDefinition, "m", "int32");
+%defineArgument(getHDefinition, "n", "int32");
+%defineOutput(getHDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getHDefinition);
+
+%% C++ class method |getPsi| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: double const * QuanFloq::vFloqHFHamil<double>::getPsi(int m,int n) const
+%getPsiDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "double const * QuanFloq::vFloqHFHamil<double>::getPsi(int m,int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.getPsi    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getPsiDefinition, "m", "int32");
+%defineArgument(getPsiDefinition, "n", "int32");
+%defineOutput(getPsiDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getPsiDefinition);
+
+%% C++ class method |getE| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: double const * QuanFloq::vFloqHFHamil<double>::getE(int n) const
+%getEDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "double const * QuanFloq::vFloqHFHamil<double>::getE(int n) const", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.getE    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(getEDefinition, "n", "int32");
+%defineOutput(getEDefinition, "RetVal", "double", <SHAPE>); % '<MLTYPE>' can be double, or clib.array.Dimer.Double
+%validate(getEDefinition);
+
+%% C++ class method |Overlap| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: double QuanFloq::vFloqHFHamil<double>::Overlap(double * Bra,double * Ket,int n)
+%OverlapDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "double QuanFloq::vFloqHFHamil<double>::Overlap(double * Bra,double * Ket,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.Overlap    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(OverlapDefinition, "Bra", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(OverlapDefinition, "Ket", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(OverlapDefinition, "n", "int32");
+%defineOutput(OverlapDefinition, "RetVal", "double");
+%validate(OverlapDefinition);
+
+%% C++ class method |NormalizePsi| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHFHamil<double>::NormalizePsi(double * tPsi,int n,bool FlagNorm)
+%NormalizePsiDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "void QuanFloq::vFloqHFHamil<double>::NormalizePsi(double * tPsi,int n,bool FlagNorm)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.NormalizePsi    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(NormalizePsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(NormalizePsiDefinition, "n", "int32");
+%defineArgument(NormalizePsiDefinition, "FlagNorm", "logical");
+%validate(NormalizePsiDefinition);
+
+%% C++ class method |HPsi| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHFHamil<double>::HPsi(double * tPsi,double * tHPsi,int m,int n)
+%HPsiDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "void QuanFloq::vFloqHFHamil<double>::HPsi(double * tPsi,double * tHPsi,int m,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.HPsi    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(HPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(HPsiDefinition, "tHPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(HPsiDefinition, "m", "int32");
+%defineArgument(HPsiDefinition, "n", "int32");
+%validate(HPsiDefinition);
+
+%% C++ class method |PsiHPsi| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: void QuanFloq::vFloqHFHamil<double>::PsiHPsi(double * tPsi,double * tE,double * tHPsi,int m,int n)
+%PsiHPsiDefinition = addMethod(dvFloqHFHamilDefinition, ...
+%    "void QuanFloq::vFloqHFHamil<double>::PsiHPsi(double * tPsi,double * tE,double * tHPsi,int m,int n)", ...
+%    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.PsiHPsi    Method of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+%defineArgument(PsiHPsiDefinition, "tPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tE", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "tHPsi", "clib.array.Dimer.Double", "input", <SHAPE>); % '<MLTYPE>' can be clib.array.Dimer.Double, or double
+%defineArgument(PsiHPsiDefinition, "m", "int32");
+%defineArgument(PsiHPsiDefinition, "n", "int32");
+%validate(PsiHPsiDefinition);
+
+%% C++ class constructor for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: QuanFloq::vFloqHFHamil<double>::vFloqHFHamil(QuanFloq::vFloqHFHamil<double> const & input1)
+dvFloqHFHamilConstructor1Definition = addConstructor(dvFloqHFHamilDefinition, ...
+    "QuanFloq::vFloqHFHamil<double>::vFloqHFHamil(QuanFloq::vFloqHFHamil<double> const & input1)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFHamil.vFloqHFHamil    Constructor of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+defineArgument(dvFloqHFHamilConstructor1Definition, "input1", "clib.Dimer.QuanFloq.dvFloqHFHamil", "input");
+validate(dvFloqHFHamilConstructor1Definition);
+
+%% C++ class public data member |nFh| for C++ class |QuanFloq::vFloqHFHamil<double>| 
+% C++ Signature: int const QuanFloq::vFloqHFHamil<double>::nFh
+addProperty(dvFloqHFHamilDefinition, "nFh", "int32", ...
+    "Description", "int32    read-only Data member of C++ class QuanFloq::vFloqHFHamil<double>."); % Modify help description values as needed.
+
+%% C++ class |QuanFloq::vFloqHFDimer<double>| with MATLAB name |clib.Dimer.QuanFloq.dvFloqHFDimer| 
+dvFloqHFDimerDefinition = addClass(libDef, "QuanFloq::vFloqHFDimer<double>", "MATLABName", "clib.Dimer.QuanFloq.dvFloqHFDimer", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFDimer    Representation of C++ class QuanFloq::vFloqHFDimer<double>."); % Modify help description values as needed.
+
+%% C++ class method |setT| for C++ class |QuanFloq::vFloqHFDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqHFDimer<double>::setT(double t,bool CalcS)
+setTDefinition = addMethod(dvFloqHFDimerDefinition, ...
+    "void QuanFloq::vFloqHFDimer<double>::setT(double t,bool CalcS)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFDimer.setT    Method of C++ class QuanFloq::vFloqHFDimer<double>."); % Modify help description values as needed.
+defineArgument(setTDefinition, "t", "double");
+defineArgument(setTDefinition, "CalcS", "logical");
+validate(setTDefinition);
+
+%% C++ class method |setV0| for C++ class |QuanFloq::vFloqHFDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqHFDimer<double>::setV0(double v0,bool CalcS)
+setV0Definition = addMethod(dvFloqHFDimerDefinition, ...
+    "void QuanFloq::vFloqHFDimer<double>::setV0(double v0,bool CalcS)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFDimer.setV0    Method of C++ class QuanFloq::vFloqHFDimer<double>."); % Modify help description values as needed.
+defineArgument(setV0Definition, "v0", "double");
+defineArgument(setV0Definition, "CalcS", "logical");
+validate(setV0Definition);
+
+%% C++ class method |setV1| for C++ class |QuanFloq::vFloqHFDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqHFDimer<double>::setV1(double v1,bool CalcS)
+setV1Definition = addMethod(dvFloqHFDimerDefinition, ...
+    "void QuanFloq::vFloqHFDimer<double>::setV1(double v1,bool CalcS)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFDimer.setV1    Method of C++ class QuanFloq::vFloqHFDimer<double>."); % Modify help description values as needed.
+defineArgument(setV1Definition, "v1", "double");
+defineArgument(setV1Definition, "CalcS", "logical");
+validate(setV1Definition);
+
+%% C++ class method |setU| for C++ class |QuanFloq::vFloqHFDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqHFDimer<double>::setU(double U,bool CalcS)
+setUDefinition = addMethod(dvFloqHFDimerDefinition, ...
+    "void QuanFloq::vFloqHFDimer<double>::setU(double U,bool CalcS)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFDimer.setU    Method of C++ class QuanFloq::vFloqHFDimer<double>."); % Modify help description values as needed.
+defineArgument(setUDefinition, "U", "double");
+defineArgument(setUDefinition, "CalcS", "logical");
+validate(setUDefinition);
+
+%% C++ class method |setT| for C++ class |QuanFloq::vFloqHFDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqHFDimer<double>::setT(double t)
+setTDefinition = addMethod(dvFloqHFDimerDefinition, ...
+    "void QuanFloq::vFloqHFDimer<double>::setT(double t)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFDimer.setT    Method of C++ class QuanFloq::vFloqHFDimer<double>."); % Modify help description values as needed.
+defineArgument(setTDefinition, "t", "double");
+validate(setTDefinition);
+
+%% C++ class method |setV| for C++ class |QuanFloq::vFloqHFDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqHFDimer<double>::setV(double v0)
+setVDefinition = addMethod(dvFloqHFDimerDefinition, ...
+    "void QuanFloq::vFloqHFDimer<double>::setV(double v0)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFDimer.setV    Method of C++ class QuanFloq::vFloqHFDimer<double>."); % Modify help description values as needed.
+defineArgument(setVDefinition, "v0", "double");
+validate(setVDefinition);
+
+%% C++ class method |setU| for C++ class |QuanFloq::vFloqHFDimer<double>| 
+% C++ Signature: void QuanFloq::vFloqHFDimer<double>::setU(double U)
+setUDefinition = addMethod(dvFloqHFDimerDefinition, ...
+    "void QuanFloq::vFloqHFDimer<double>::setU(double U)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFDimer.setU    Method of C++ class QuanFloq::vFloqHFDimer<double>."); % Modify help description values as needed.
+defineArgument(setUDefinition, "U", "double");
+validate(setUDefinition);
+
+%% C++ class constructor for C++ class |QuanFloq::vFloqHFDimer<double>| 
+% C++ Signature: QuanFloq::vFloqHFDimer<double>::vFloqHFDimer(QuanFloq::vFloqHFDimer<double> const & input1)
+dvFloqHFDimerConstructor1Definition = addConstructor(dvFloqHFDimerDefinition, ...
+    "QuanFloq::vFloqHFDimer<double>::vFloqHFDimer(QuanFloq::vFloqHFDimer<double> const & input1)", ...
+    "Description", "clib.Dimer.QuanFloq.dvFloqHFDimer.vFloqHFDimer    Constructor of C++ class QuanFloq::vFloqHFDimer<double>."); % Modify help description values as needed.
+defineArgument(dvFloqHFDimerConstructor1Definition, "input1", "clib.Dimer.QuanFloq.dvFloqHFDimer", "input");
+validate(dvFloqHFDimerConstructor1Definition);
+
+%% C++ class |QuanFloq::FloqHFDimer<double>| with MATLAB name |clib.Dimer.QuanFloq.dFloqHFDimer| 
+dFloqHFDimerDefinition = addClass(libDef, "QuanFloq::FloqHFDimer<double>", "MATLABName", "clib.Dimer.QuanFloq.dFloqHFDimer", ...
+    "Description", "clib.Dimer.QuanFloq.dFloqHFDimer    Representation of C++ class QuanFloq::FloqHFDimer<double>."); % Modify help description values as needed.
+
+%% C++ class constructor for C++ class |QuanFloq::FloqHFDimer<double>| 
+% C++ Signature: QuanFloq::FloqHFDimer<double>::FloqHFDimer(int nFH,int nF_max,double v0,double v1,double u,double w,double t)
+dFloqHFDimerConstructor1Definition = addConstructor(dFloqHFDimerDefinition, ...
+    "QuanFloq::FloqHFDimer<double>::FloqHFDimer(int nFH,int nF_max,double v0,double v1,double u,double w,double t)", ...
+    "Description", "clib.Dimer.QuanFloq.dFloqHFDimer.FloqHFDimer    Constructor of C++ class QuanFloq::FloqHFDimer<double>."); % Modify help description values as needed.
+defineArgument(dFloqHFDimerConstructor1Definition, "nFH", "int32");
+defineArgument(dFloqHFDimerConstructor1Definition, "nF_max", "int32");
+defineArgument(dFloqHFDimerConstructor1Definition, "v0", "double");
+defineArgument(dFloqHFDimerConstructor1Definition, "v1", "double");
+defineArgument(dFloqHFDimerConstructor1Definition, "u", "double");
+defineArgument(dFloqHFDimerConstructor1Definition, "w", "double");
+defineArgument(dFloqHFDimerConstructor1Definition, "t", "double");
+validate(dFloqHFDimerConstructor1Definition);
+
+%% C++ class constructor for C++ class |QuanFloq::FloqHFDimer<double>| 
+% C++ Signature: QuanFloq::FloqHFDimer<double>::FloqHFDimer(QuanFloq::FloqHFDimer<double> const & input1)
+dFloqHFDimerConstructor2Definition = addConstructor(dFloqHFDimerDefinition, ...
+    "QuanFloq::FloqHFDimer<double>::FloqHFDimer(QuanFloq::FloqHFDimer<double> const & input1)", ...
+    "Description", "clib.Dimer.QuanFloq.dFloqHFDimer.FloqHFDimer    Constructor of C++ class QuanFloq::FloqHFDimer<double>."); % Modify help description values as needed.
+defineArgument(dFloqHFDimerConstructor2Definition, "input1", "clib.Dimer.QuanFloq.dFloqHFDimer", "input");
+validate(dFloqHFDimerConstructor2Definition);
+
+%% Validate the library definition
+validate(libDef);
+
+end

@@ -21,27 +21,20 @@ template<typename T>
 vHamil<T>::vHamil( int nH, Hamil_Sym Sym, T* H, T* Psi, T* E ) :
 		nH(nH), Sym(Sym), H(H), Psi(Psi), E(E) { }
 
-template<typename T>
-Hamil<T>::Hamil( int nH, Hamil_Sym Sym ) :
-		vHamil<T>(nH, Sym, true) { }
-template<typename T>
-Hamil<T>::Hamil( int nH, Hamil_Sym Sym, T* H ):
-		Hamil<T>(nH, Sym) {
-	vHamil<T>::Initialize(H);
-}
-
-template<typename T, const HamilSize& Sz>
+#if __cplusplus >= 202002L
+template<typename T, HamilSize Sz>
 tHamil<T, Sz>::tHamil()
 		: vHamil<T>(Sz.nH, false) {
 	vHamil<T>::H = H;
 	vHamil<T>::Psi = Psi;
 	vHamil<T>::E = E;
 }
-template<typename T, const HamilSize& Sz>
+template<typename T, HamilSize Sz>
 tHamil<T, Sz>::tHamil( T* tH )
 		: tHamil() {
 	this->setH(tH);
 }
+#endif
 // endregion
 
 // region Get/Set

@@ -1,5 +1,8 @@
-add_library(Test SHARED Test.cpp)
+add_library(Test INTERFACE)
+target_sources(Test INTERFACE Test.cpp)
 add_executable(testHamil TestHamil.cpp)
 
-target_link_libraries(Test PUBLIC AllBaseHamils)
-target_link_libraries(testHamil PUBLIC Test;Dimer;HFDimer;FloqDimer;FloqHFDimer)
+target_link_libraries(Test INTERFACE vHamil ${MKL_LIBRARIES})
+target_link_libraries(testHamil PUBLIC Test;Dimer
+		PUBLIC BaseQuanFloq
+		)

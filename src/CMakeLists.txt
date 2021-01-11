@@ -1,39 +1,38 @@
-add_library(AllBaseHamils INTERFACE)
-add_library(Hamil SHARED Hamil/Hamil.cpp)
-add_library(FloqHamil SHARED Hamil/FloqHamil.cpp )
-add_library(HFHamil SHARED Hamil/HFHamil.cpp)
-add_library(FloqHFHamil SHARED Hamil/FloqHFHamil.cpp)
+# Generate base configuration
+configure_file(Conf.h.in Conf.h)
 
-set(BaseHeaders "PreCompOpt.h;Hamil/PreCompOpt_Hamil.h;Hamil/Hamil.h;Hamil/FloqHamil.h;Hamil/HFHamil.h;Hamil/FloqHFHamil.h")
-set(DimerHeaders "Hubbard/Dimer.h;Hubbard/FloqDimer.h;Hubbard/HFDimer.h;Hubbard/FloqHFDimer.h")
-#target_link_libraries(AllBaseHamils INTERFACE Hamil FloqHamil HFHamil FloqHFHamil)
-#target_link_libraries(DimerHamils INTERFACE Dimer FloqDimer HFDimer FloqHFDimer)
+add_library(Conf INTERFACE)
+target_include_directories(Conf INTERFACE "${PROJECT_BINARY_DIR}/src")
+install(FILES "${PROJECT_BINARY_DIR}/src/Conf.h" TYPE INCLUDE)
 
-#add_library(AllBaseHamils INTERFACE)
-#add_library(DimerHamils INTERFACE)
+add_library(BaseQuanFloq INTERFACE)
+target_sources(BaseQuanFloq INTERFACE BaseQuanFloq.cpp BaseQuanFloq.h)
+target_link_libraries(BaseQuanFloq INTERFACE Conf)
+target_include_directories(BaseQuanFloq INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}")
+install(FILES BaseQuanFloq.h TYPE INCLUDE)
 
-#install(TARGETS AllBaseHamils DESTINATION lib)
-#install(TARGETS DimerHamils DESTINATION lib)
+add_subdirectory(BaseHamil)
+add_subdirectory(GenHamil)
+add_subdirectory(Hubbard)
 
-#install(FILES BaseHeaders PUBLIC_HEADER)
-#install(FILES DimerHeaders PUBLIC_HEADER)
-
-add_library(Dimer SHARED Hubbard/Dimer.cpp)
-add_library(HFDimer SHARED Hubbard/HFDimer.cpp )
-add_library(FloqDimer SHARED Hubbard/FloqDimer.cpp)
-add_library(FloqHFDimer SHARED Hubbard/FloqHFDimer.cpp)
-
-target_link_libraries(Hamil PUBLIC ${MKL_LIBRARIES})
-target_link_libraries(FloqHamil PUBLIC Hamil)
-target_link_libraries(HFHamil PUBLIC Hamil)
-target_link_libraries(FloqHFHamil PUBLIC HFHamil)
-
-target_link_libraries(Dimer PUBLIC Hamil)
-target_link_libraries(HFDimer PUBLIC HFHamil;Dimer)
-target_link_libraries(FloqDimer PUBLIC FloqHamil;Dimer)
-target_link_libraries(FloqHFDimer PUBLIC FloqHFHamil;HFDimer;FloqDimer)
-
-install(TARGETS Hamil FloqHamil HFHamil FloqHFHamil)
-install(TARGETS Dimer FloqDimer HFDimer FloqHFDimer)
-install(FILES ${BaseHeaders} DESTINATION include)
-install(FILES ${DimerHeaders} DESTINATION include)
+## Build the libraries
+## TODO: Implement user option for STATIC/SHARED library
+#add_library(vHamil Conf.cpp BaseHamil/vHamil.cpp BaseHamil/vFloqHamil.cpp BaseHamil/vHFHamil.cpp BaseHamil/vFloqHFHamil.cpp)
+#add_library(vDimer Hubbard/BaseDimer/vDimer.cpp Hubbard/BaseDimer/vFloqDimer.cpp Hubbard/BaseDimer/vHFDimer.cpp Hubbard/BaseDimer/vFloqHFDimer.cpp)
+## TODO: Resolve MATLAB not being able to load shared library
+## Temporary hard-coded Static
+#add_library(Hamil GenHamil/Hamil.cpp GenHamil/FloqHamil.cpp GenHamil/HFHamil.cpp GenHamil/FloqHFHamil.cpp)
+#add_library(Dimer Hubbard/Dimer.cpp Hubbard/FloqDimer.cpp Hubbard/HFDimer.cpp Hubbard/FloqHFDimer.cpp)
+#
+## Using target, the definitions propagate to all including targets
+#target_compile_definitions(vHamil PUBLIC ${DATA_DEFS})
+#
+#target_include_directories(vHamil PUBLIC "${PROJECT_BINARY_DIR}/src")
+#target_include_directories(Hamil PUBLIC BaseHamil)
+#target_include_directories(vDimer PUBLIC BaseHamil)
+#target_include_directories(Dimer PUBLIC Hubbard/BaseDimer)
+#
+#target_link_libraries(vHamil PUBLIC ${MKL_LIBRARIES})
+#target_link_libraries(Hamil PUBLIC vHamil)
+#target_link_libraries(vDimer PUBLIC vHamil)
+#target_link_libraries(Dimer PUBLIC vDimer)

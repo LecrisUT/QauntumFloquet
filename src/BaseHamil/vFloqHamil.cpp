@@ -54,7 +54,8 @@ FloqHamil<T>::FloqHamil( int nH, Hamil_Sym SSym, int nFH, int nF_max, T* H, T w 
 	vFloqHamil<T>::Initialize(H, w);
 }
 
-template<typename T, const FloqHamilSize& Sz>
+#if __cplusplus >= 202002L
+template<typename T, FloqHamilSize Sz>
 tFloqHamil<T, Sz>::tFloqHamil()
 		: vFloqHamil<T>(Sz.nH, Sz.nFH, Sz.nF_max, diag_ind, partialt) {
 	vHamil<T>::H = H;
@@ -63,11 +64,12 @@ tFloqHamil<T, Sz>::tFloqHamil()
 	vFloqHamil<T>::partialt = partialt;
 	vFloqHamil<T>::diag_ind = diag_ind;
 }
-template<typename T, const FloqHamilSize& Sz>
+template<typename T, FloqHamilSize Sz>
 tFloqHamil<T, Sz>::tFloqHamil( T* tH )
 		: tFloqHamil() {
 	this->setH(tH);
 }
+#endif
 
 // region Get/Set
 template<typename T>
