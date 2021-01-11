@@ -1,11 +1,8 @@
-#include "Hamil.h"
+#include "vHamil.h"
 #include <mkl.h>
 
 using namespace QuanFloq;
-// region Instantiations
-// endregion
 
-// TODO: Switch to RowMajor
 // region Constructor/Destructor
 template<typename T>
 vHamil<T>::vHamil() :
@@ -40,7 +37,7 @@ tHamil<T, Sz>::tHamil( T* tH )
 // region Get/Set
 // TODO: Unclear if should be inlined or declared in header
 template<typename T>
-T* vHamil<T>::getH() const {
+const T* vHamil<T>::getH() const {
 	return H;
 }
 template<typename T>
@@ -100,6 +97,7 @@ void vHamil<T>::HPsi( T* tPsi, T* tHPsi ) {
 }
 // TODO: Should be safe to inline because not public
 // TODO: Make sure devirtualization occurs for inline to make sense
+// TODO: Check if constexpr approach is resolved on comiplation
 template<typename T>
 inline void vHamil<T>::mHPsi( T* tPsi, T* tHPsi ) {
 	if constexpr (std::is_same_v<T, float>)
@@ -147,7 +145,8 @@ inline T vHamil<T>::PsiHPsi() {
 template<typename T>
 inline T vHamil<T>::PsiHPsi( T* tPsi ) {
 	T tE;
-	auto tHPsi = new T[nH];
+	auto tHPsi = new T[nH]();
+//	auto tHPsi = (T*)calloc(nH, sizeof(T));
 	PsiHPsi(tPsi, &tE, tHPsi);
 	return tE;
 }
@@ -235,6 +234,7 @@ T vHamil<T>::Overlap( T* Bra, T* Ket ) {
 //	return val;
 //}
 //// endregion
+
 template<typename T>
 void vHamil<T>::NormalizePsi( T* tPsi, bool FlagNorm ) {
 	if constexpr (std::is_same_v<T, float>) {
@@ -303,19 +303,55 @@ void vHamil<T>::NormalizePsi( T* tPsi, bool FlagNorm ) {
 //}
 //// endregion
 // endregion
+
+template<typename T>
+const T* vHamil<T>::getH( [[maybe_unused]] int m, [[maybe_unused]] int n ) const {
+	return H;
+}
+template<typename T>
+const T* vHamil<T>::getPsi( [[maybe_unused]] int m, [[maybe_unused]] int n ) const {
+	return Psi;
+}
+template<typename T>
+const T* vHamil<T>::getE( [[maybe_unused]] int n ) const {
+	return E;
+}
+
+template<typename T>
+T vHamil<T>::Overlap( T* Bra, T* Ket, [[maybe_unused]] int n ) {
+	return Overlap(Bra, Ket);
+}
+template<typename T>
+void vHamil<T>::NormalizePsi( T* tPsi, [[maybe_unused]] int n, bool FlagNorm ) {
+	NormalizePsi(tPsi, FlagNorm);
+}
+template<typename T>
+void vHamil<T>::HPsi( T* tPsi, T* tHPsi, [[maybe_unused]] int m, [[maybe_unused]] int n ) {
+	HPsi(tPsi, tHPsi);
+}
+template<typename T>
+void vHamil<T>::PsiHPsi( T* tPsi, T* tE, T* tHPsi, [[maybe_unused]] int m, [[maybe_unused]] int n ) {
+	PsiHPsi(tPsi, tE, tHPsi);
+}
+
+// TODO: Currently initialization needed in oder to link. Maybe if include .cpp can be simplified
+// region Initialize templates
+//#ifdef BUILD_VIRTUAL
+#ifdef BUILD_FLOAT
 template
 class QuanFloq::vHamil<float>;
+#endif
+#ifdef BUILD_DOUBLE
 template
 class QuanFloq::vHamil<double>;
+#endif
+#ifdef BUILD_CFLOAT
 template
 class QuanFloq::vHamil<cfloat >;
+#endif
+#ifdef BUILD_CDOUBLE
 template
 class QuanFloq::vHamil<cdouble >;
-template
-class QuanFloq::Hamil<float>;
-template
-class QuanFloq::Hamil<double>;
-template
-class QuanFloq::Hamil<cfloat >;
-template
-class QuanFloq::Hamil<cdouble >;
+#endif
+//#endif
+// endregion

@@ -1,0 +1,32 @@
+#ifndef QF_CONF_H
+#define QF_CONF_H
+
+#include <cassert>
+
+#define QUANFLOQ_VERSION @QuanFloq_VERSION@
+#define QUANFLOQ_VERSION_MAJOR @QuanFloq_VERSION_MAJOR@
+#define QUANFLOQ_VERSION_MINOR @QuanFloq_VERSION_MINOR@
+
+#ifndef cfloat
+#if Use_mkl
+#define cfloat MKL_Complex8
+#else
+#define cfloat std::complex<float>
+#define MKL_Complex8 cfloat
+#endif
+#else
+#define MKL_Complex8 cfloat
+#endif
+
+#ifndef cdouble
+#if Use_mkl
+#define cdouble MKL_Complex16
+#else
+#define cdouble std::complex<double>
+#define MKL_Complex16 cdouble
+#endif
+#else
+#define MKL_Complex16 cdouble
+#endif
+
+#endif //

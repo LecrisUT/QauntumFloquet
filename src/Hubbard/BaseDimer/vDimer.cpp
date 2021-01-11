@@ -41,3 +41,24 @@ void vDimer<T>::setU( T tU ) {
 	this->H[0] = v + tU;
 	this->H[5] = -v + tU;
 }
+
+// region Initialize templates
+//#ifdef BUILD_VIRTUAL
+#ifdef BUILD_FLOAT
+template
+class QuanFloq::vDimer<float>;
+#endif
+#ifdef BUILD_DOUBLE
+template
+class QuanFloq::vDimer<double>;
+#endif
+#ifdef BUILD_CFLOAT
+template
+class QuanFloq::vDimer<cfloat >;
+#endif
+#ifdef BUILD_CDOUBLE
+template
+class QuanFloq::vDimer<cdouble >;
+#endif
+//#endif
+// endregion

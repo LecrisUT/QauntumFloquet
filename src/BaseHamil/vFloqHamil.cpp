@@ -1,4 +1,4 @@
-#include "FloqHamil.h"
+#include "vFloqHamil.h"
 
 using namespace QuanFloq;
 
@@ -44,16 +44,6 @@ vFloqHamil<T>::vFloqHamil( int nFH, int nF_max, int csrNvalues, int* csrColumns,
 	Initialize();
 }
 
-template<typename T>
-FloqHamil<T>::FloqHamil( int nH, Hamil_Sym SSym, int nFH, int nF_max ) :
-		vHamil<T>(nH, SSym, false),
-		vFloqHamil<T>(nFH, nF_max, true) { }
-template<typename T>
-FloqHamil<T>::FloqHamil( int nH, Hamil_Sym SSym, int nFH, int nF_max, T* H, T w ) :
-		FloqHamil<T>(nH, SSym, nFH, nF_max) {
-	vFloqHamil<T>::Initialize(H, w);
-}
-
 #if __cplusplus >= 202002L
 template<typename T, FloqHamilSize Sz>
 tFloqHamil<T, Sz>::tFloqHamil()
@@ -70,6 +60,7 @@ tFloqHamil<T, Sz>::tFloqHamil( T* tH )
 	this->setH(tH);
 }
 #endif
+// endregion
 
 // region Get/Set
 template<typename T>
@@ -172,7 +163,6 @@ void vFloqHamil<T>::CalcSH() {
 #endif
 	CalcSHf();
 }
-// region Specific implementations: CalcSH
 template<typename T>
 inline void vFloqHamil<T>::CalcSH_part() {
 	[[maybe_unused]] sparse_status_t res;
@@ -192,31 +182,6 @@ inline void vFloqHamil<T>::CalcSH_part() {
 			static_assert(sizeof(T) != sizeof(T), "Type not supported");
 	assert(res == SPARSE_STATUS_SUCCESS);
 }
-//template<>
-//void vFloqHamil<float>::CalcSH_part() {
-//	[[maybe_unused]] auto res = mkl_sparse_s_create_csr(&SH, SPARSE_INDEX_BASE_ZERO, nH2F_max, nH2F_max, csr_rows,
-//	                                                    csr_rows + 1, csr_columns, csr_values_SH);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//}
-//template<>
-//void vFloqHamil<double>::CalcSH_part() {
-//	[[maybe_unused]] auto res = mkl_sparse_d_create_csr(&SH, SPARSE_INDEX_BASE_ZERO, nH2F_max, nH2F_max, csr_rows,
-//	                                                    csr_rows + 1, csr_columns, csr_values_SH);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//}
-//template<>
-//void vFloqHamil<cfloat >::CalcSH_part() {
-//	[[maybe_unused]] auto res = mkl_sparse_c_create_csr(&SH, SPARSE_INDEX_BASE_ZERO, nH2F_max, nH2F_max, csr_rows,
-//	                                                    csr_rows + 1, csr_columns, csr_values_SH);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//}
-//template<>
-//void vFloqHamil<cdouble >::CalcSH_part() {
-//	[[maybe_unused]] auto res = mkl_sparse_z_create_csr(&SH, SPARSE_INDEX_BASE_ZERO, nH2F_max, nH2F_max, csr_rows,
-//	                                                    csr_rows + 1, csr_columns, csr_values_SH);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//}
-// endregion
 template<typename T>
 void vFloqHamil<T>::CalcSHf() {
 	int ind = 0;
@@ -234,7 +199,7 @@ void vFloqHamil<T>::CalcSHf() {
 	setCalcHf(CalcHf);
 #endif
 }
-// region Specific implementations: CalcSHf
+
 #ifndef OLDMKL
 template<typename T>
 inline void vFloqHamil<T>::CalcSHf_part() {
@@ -299,79 +264,6 @@ inline void vFloqHamil<T>::CalcSHf_part() {
 			static_assert(sizeof(T) != sizeof(T), "Type not supported");
 	assert(res == SPARSE_STATUS_SUCCESS);
 }
-//template<>
-//void vFloqHamil<float>::CalcSHf_part() {
-//#ifdef UPDATESHF
-//#ifdef FUTUREMKL
-//	[[maybe_unused]] auto res = mkl_sparse_s_update_values(SHf, this->nH * n2F_max, diag_ind, diag_ind, partialt);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//#else
-//	for (int i = 1; i < nH2F_max; i++) {
-//		[[maybe_unused]] auto res = mkl_sparse_s_set_value(SHf, i, i, csr_values_SH[csr_diagInd[i]] + partialt[i]);
-//		assert(res == SPARSE_STATUS_SUCCESS);
-//	}
-//#endif
-//#else
-//	[[maybe_unused]] auto res = mkl_sparse_s_create_csr(&SHf, SPARSE_INDEX_BASE_ZERO, nH2F_max, nH2F_max, csr_rows,
-//	                                                    csr_rows + 1, csr_columns, csr_values_SHf);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//#endif
-//}
-//template<>
-//void vFloqHamil<double>::CalcSHf_part() {
-//#ifdef UPDATESHF
-//#ifdef FUTUREMKL
-//	[[maybe_unused]] auto res = mkl_sparse_d_update_values(SHf, this->nH * n2F_max, diag_ind, diag_ind, partialt);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//#else
-//	for (int i = 1; i < nH2F_max; i++) {
-//		[[maybe_unused]] auto res = mkl_sparse_d_set_value(SHf, i, i, csr_values_SH[csr_diagInd[i]] + partialt[i]);
-//		assert(res == SPARSE_STATUS_SUCCESS);
-//	}
-//#endif
-//#else
-//	[[maybe_unused]] auto res = mkl_sparse_d_create_csr(&SHf, SPARSE_INDEX_BASE_ZERO, nH2F_max, nH2F_max, csr_rows,
-//	                                                    csr_rows + 1, csr_columns, csr_values_SHf);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//#endif
-//}
-//template<>
-//void vFloqHamil<cfloat >::CalcSHf_part() {
-//#ifdef UPDATESHF
-//#ifdef FUTUREMKL
-//	[[maybe_unused]] auto res = mkl_sparse_c_update_values(SHf, this->nH * n2F_max, diag_ind, diag_ind, partialt);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//#else
-//	for (int i = 1; i < nH2F_max; i++) {
-//		[[maybe_unused]] auto res = mkl_sparse_c_set_value(SHf, i, i, csr_values_SH[csr_diagInd[i]] + partialt[i]);
-//		assert(res == SPARSE_STATUS_SUCCESS);
-//	}
-//#endif
-//#else
-//	[[maybe_unused]] auto res = mkl_sparse_c_create_csr(&SHf, SPARSE_INDEX_BASE_ZERO, nH2F_max, nH2F_max, csr_rows,
-//	                                                    csr_rows + 1, csr_columns, csr_values_SHf);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//#endif
-//}
-//template<>
-//void vFloqHamil<cdouble >::CalcSHf_part() {
-//#ifdef UPDATESHF
-//#ifdef FUTUREMKL
-//	[[maybe_unused]] auto res = mkl_sparse_z_update_values(SHf, this->nH * n2F_max, diag_ind, diag_ind, partialt);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//#else
-//	for (int i = 1; i < nH2F_max; i++) {
-//		[[maybe_unused]] auto res = mkl_sparse_z_set_value(SHf, i, i, csr_values_SH[csr_diagInd[i]] + partialt[i]);
-//		assert(res == SPARSE_STATUS_SUCCESS);
-//	}
-//#endif
-//#else
-//	[[maybe_unused]] auto res = mkl_sparse_z_create_csr(&SHf, SPARSE_INDEX_BASE_ZERO, nH2F_max, nH2F_max, csr_rows,
-//	                                                    csr_rows + 1, csr_columns, csr_values_SHf);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//#endif
-//}
-// endregion
 #endif
 template<typename T>
 T* vFloqHamil<T>::HPsi( T* tPsi ) {
@@ -427,55 +319,6 @@ inline void vFloqHamil<T>::mHPsi( T* tPsi, T* tHPsi ) {
 	assert(res == SPARSE_STATUS_SUCCESS);
 #endif
 }
-//template<>
-//void vFloqHamil<float>::mHPsi( float* tPsi, float* tHPsi ) {
-//#ifdef OLDMKL
-//	//	mkl_cspblas_scsrsymv(&charU, &nH2F_max, csr_values_Active, csr_rows, csr_columns, tPsi, tHPsi);
-//		static const char matdescra[] = {'S', 'U', 'N', 'C'};
-//		mkl_scsrmv(&charN, &nH2F_max, &nH2F_max, &float1, matdescra,
-//				   csr_values_Active, csr_columns, csr_rows, csr_rows + 1, tPsi, &float0, tHPsi);
-//#else
-//	[[maybe_unused]] auto res = mkl_sparse_s_mv(SPARSE_OPERATION_NON_TRANSPOSE,
-//	                                            float1, ActiveSH, SDescr, tPsi, float0, tHPsi);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//#endif
-//}
-//template<>
-//void vFloqHamil<double>::mHPsi( double* tPsi, double* tHPsi ) {
-//#ifdef OLDMKL
-//	static const char matdescra[] = {'S', 'U', 'N', 'C'};
-//	mkl_dcsrmv(&charN, &nH2F_max, &nH2F_max, &double1, matdescra,
-//			   csr_values_Active, csr_columns, csr_rows, csr_rows + 1, tPsi, &double0, tHPsi);
-//#else
-//	[[maybe_unused]] auto res = mkl_sparse_d_mv(SPARSE_OPERATION_NON_TRANSPOSE,
-//	                                            double1, ActiveSH, SDescr, tPsi, double0, tHPsi);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//#endif
-//}
-//template<>
-//void vFloqHamil<cfloat >::mHPsi( cfloat* tPsi, cfloat* tHPsi ) {
-//#ifdef OLDMKL
-//	static const char matdescra[] = {'H', 'U', 'N', 'C'};
-//	mkl_ccsrmv(&charN, &nH2F_max, &nH2F_max, &cfloat1, matdescra,
-//			   csr_values_Active, csr_columns, csr_rows, csr_rows + 1, tPsi, &cfloat0, tHPsi);
-//#else
-//	[[maybe_unused]] auto res = mkl_sparse_c_mv(SPARSE_OPERATION_NON_TRANSPOSE,
-//	                                            cfloat1, ActiveSH, SDescr, tPsi, cfloat0, tHPsi);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//#endif
-//}
-//template<>
-//void vFloqHamil<cdouble >::mHPsi( cdouble* tPsi, cdouble* tHPsi ) {
-//#ifdef OLDMKL
-//	static const char matdescra[] = {'H', 'U', 'N', 'C'};
-//	mkl_zcsrmv(&charN, &nH2F_max, &nH2F_max, &cdouble1, matdescra,
-//			   csr_values_Active, csr_columns, csr_rows, csr_rows + 1, tPsi, &cdouble0, tHPsi);
-//#else
-//	[[maybe_unused]] auto res = mkl_sparse_z_mv(SPARSE_OPERATION_NON_TRANSPOSE,
-//	                                            cdouble1, ActiveSH, SDescr, tPsi, cdouble0, tHPsi);
-//	assert(res == SPARSE_STATUS_SUCCESS);
-//#endif
-//}
 template<typename T>
 inline T vFloqHamil<T>::PsiHPsi( T* tPsi ) {
 	T tE;
@@ -503,28 +346,6 @@ inline void vFloqHamil<T>::mPsiHPsi( T* tPsi, T* tE, T* tHPsi ) {
 			static_assert(sizeof(T) != sizeof(T), "Type not supported");
 	assert(res == SPARSE_STATUS_SUCCESS);
 }
-//// region Specific implementations: PsiHPsi
-//template<>
-//void vFloqHamil<float>::mPsiHPsi( float* tPsi, float* tE, float* tHPsi ) {
-//	mkl_sparse_s_dotmv(SPARSE_OPERATION_NON_TRANSPOSE,
-//	                   float1, ActiveSH, SDescr, tPsi, float0, tHPsi, tE);
-//}
-//template<>
-//void vFloqHamil<double>::mPsiHPsi( double* tPsi, double* tE, double* tHPsi ) {
-//	mkl_sparse_d_dotmv(SPARSE_OPERATION_NON_TRANSPOSE,
-//	                   double1, ActiveSH, SDescr, tPsi, double0, tHPsi, tE);
-//}
-//template<>
-//void vFloqHamil<cfloat >::mPsiHPsi( cfloat* tPsi, cfloat* tE, cfloat* tHPsi ) {
-//	mkl_sparse_c_dotmv(SPARSE_OPERATION_NON_TRANSPOSE,
-//	                   cfloat1, ActiveSH, SDescr, tPsi, cfloat0, tHPsi, tE);
-//}
-//template<>
-//void vFloqHamil<cdouble >::mPsiHPsi( cdouble* tPsi, cdouble* tE, cdouble* tHPsi ) {
-//	mkl_sparse_z_dotmv(SPARSE_OPERATION_NON_TRANSPOSE,
-//	                   cdouble1, ActiveSH, SDescr, tPsi, cdouble0, tHPsi, tE);
-//}
-//// endregion
 #endif
 template<typename T>
 T vFloqHamil<T>::Overlap( T* Bra, T* Ket ) {
@@ -543,28 +364,6 @@ T vFloqHamil<T>::Overlap( T* Bra, T* Ket ) {
 	} else
 			static_assert(sizeof(T) != sizeof(T), "Type not supported");
 }
-//// region Specific implementations: Overlap
-//template<>
-//float vFloqHamil<float>::Overlap( float* Bra, float* Ket ) {
-//	return cblas_sdot(nH2F_max, Bra, 1, Ket, 1);
-//}
-//template<>
-//double vFloqHamil<double>::Overlap( double* Bra, double* Ket ) {
-//	return cblas_ddot(nH2F_max, Bra, 1, Ket, 1);
-//}
-//template<>
-//cfloat vFloqHamil<cfloat >::Overlap( cfloat* Bra, cfloat* Ket ) {
-//	cfloat val;
-//	cblas_cdotc_sub(nH2F_max, Bra, 1, Ket, 1, &val);
-//	return val;
-//}
-//template<>
-//cdouble vFloqHamil<cdouble >::Overlap( cdouble* Bra, cdouble* Ket ) {
-//	cdouble val;
-//	cblas_zdotc_sub(nH2F_max, Bra, 1, Ket, 1, &val);
-//	return val;
-//}
-//// endregion
 template<typename T>
 void vFloqHamil<T>::NormalizePsi( T* tPsi, bool FlagNorm ) {
 	if constexpr (std::is_same_v<T, float>) {
@@ -598,54 +397,57 @@ void vFloqHamil<T>::NormalizePsi( T* tPsi, bool FlagNorm ) {
 	} else
 			static_assert(sizeof(T) != sizeof(T), "Type not supported");
 }
-//// region Specific implementations: NormalizePsi
-//template<>
-//void vFloqHamil<float>::NormalizePsi( float* tPsi, bool FlagNorm ) {
-//	if (FlagNorm) {
-//		auto norm = tPsi[nH * nF_max] < 0.0f ? -1.0f : 1.0f / cblas_snrm2(nH2F_max, tPsi, 1);
-//		cblas_sscal(nH2F_max, norm, tPsi, 1);
-//	} else if (tPsi[nH * nF_max] < 0.0f)
-//		cblas_sscal(nH2F_max, -1.0f, tPsi, 1);
-//}
-//template<>
-//void vFloqHamil<double>::NormalizePsi( double* tPsi, bool FlagNorm ) {
-//	if (FlagNorm) {
-//		auto norm = Psi[nH * nF_max] < 0.0f ? -1.0f : 1.0f / cblas_dnrm2(nH2F_max, tPsi, 1);
-//		cblas_dscal(nH2F_max, norm, tPsi, 1);
-//	} else if (Psi[nH * nF_max] < 0.0f)
-//		cblas_dscal(nH2F_max, -1.0f, tPsi, 1);
-//}
-//template<>
-//void vFloqHamil<cfloat >::NormalizePsi( cfloat* tPsi, bool FlagNorm ) {
-//	if (FlagNorm) {
-//		auto norm = Psi[nH * nF_max].real() < 0.0f ? -1.0f : 1.0f / cblas_scnrm2(nH2F_max, tPsi, 1);
-//		cblas_csscal(nH2F_max, norm, tPsi, 1);
-//	} else if (Psi[nH * nF_max].real() < 0.0f)
-//		cblas_csscal(nH2F_max, -1.0f, tPsi, 1);
-//}
-//template<>
-//void vFloqHamil<cdouble >::NormalizePsi( cdouble* tPsi, bool FlagNorm ) {
-//	if (FlagNorm) {
-//		auto norm = Psi[nH * nF_max].real() < 0.0f ? -1.0f : 1.0f / cblas_dznrm2(nH2F_max, tPsi, 1);
-//		cblas_zdscal(nH, norm, tPsi, 1);
-//	} else if (Psi[nH * nF_max].real() < 0.0f)
-//		cblas_zdscal(nH, -1.0f, tPsi, 1);
-//}
-//// endregion
 
+template<typename T>
+const T* vFloqHamil<T>::getH( [[maybe_unused]] int m, [[maybe_unused]] int n, [[maybe_unused]] int nf ) const {
+	return this->H;
+}
+template<typename T>
+const T* vFloqHamil<T>::getH( [[maybe_unused]] int m, [[maybe_unused]] int n ) const {
+	return this->H;
+}
+template<typename T>
+const T* vFloqHamil<T>::getPsi( [[maybe_unused]] int m, [[maybe_unused]] int n ) const {
+	return this->Psi;
+}
+template<typename T>
+const T* vFloqHamil<T>::getE( [[maybe_unused]] int n ) const {
+	return this->E;
+}
+template<typename T>
+T vFloqHamil<T>::Overlap( T* Bra, T* Ket, [[maybe_unused]] int n ) {
+	return this->Overlap(Bra, Ket);
+}
+template<typename T>
+void vFloqHamil<T>::NormalizePsi( T* tPsi, [[maybe_unused]] int n, bool FlagNorm ) {
+	this->NormalizePsi(tPsi, FlagNorm);
+}
+template<typename T>
+void vFloqHamil<T>::HPsi( T* tPsi, T* tHPsi, [[maybe_unused]] int m, [[maybe_unused]] int n ) {
+	this->HPsi(tPsi, tHPsi);
+}
+template<typename T>
+void vFloqHamil<T>::PsiHPsi( T* tPsi, T* tE, T* tHPsi, [[maybe_unused]] int m, [[maybe_unused]] int n ) {
+	this->PsiHPsi(tPsi, tE, tHPsi);
+}
+
+// region Initialize templates
+//#ifdef BUILD_VIRTUAL
+#ifdef BUILD_FLOAT
 template
 class QuanFloq::vFloqHamil<float>;
+#endif
+#ifdef BUILD_DOUBLE
 template
 class QuanFloq::vFloqHamil<double>;
+#endif
+#ifdef BUILD_CFLOAT
 template
 class QuanFloq::vFloqHamil<cfloat >;
+#endif
+#ifdef BUILD_CDOUBLE
 template
 class QuanFloq::vFloqHamil<cdouble >;
-template
-class QuanFloq::FloqHamil<float>;
-template
-class QuanFloq::FloqHamil<double>;
-template
-class QuanFloq::FloqHamil<cfloat >;
-template
-class QuanFloq::FloqHamil<cdouble >;
+#endif
+//#endif
+// endregion

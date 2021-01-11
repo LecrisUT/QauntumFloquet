@@ -5,11 +5,17 @@
 #ifndef QF_BASEDIMER_H
 #define QF_BASEDIMER_H
 
-#include "../BaseHamil/vHamil.h"
-// region Class Declarations
+#include <vHamil.h>
 namespace QuanFloq{
+	// region Class Declarations
 	template<typename T>
 	class vDimer;
+	using svDimer = vDimer<float>;
+	using dvDimer = vDimer<double>;
+	using cvDimer = vDimer<cfloat >;
+	using zvDimer = vDimer<cdouble >;
+	// endregion
+
 	template<typename T>
 	class vDimer :
 			virtual public vHamil<T> {
@@ -18,9 +24,10 @@ namespace QuanFloq{
 		T v;
 		T U;
 
-	public:
+	protected:
 		vDimer();
 
+	public:
 		[[nodiscard]] T getT() const;
 		virtual void setT( T t );
 		[[nodiscard]] T getV() const;

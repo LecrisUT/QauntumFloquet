@@ -12,7 +12,27 @@ HFDimer<T>::HFDimer( T v, T U, T t ):
 		vHFHamil<T>(2, 1, 2, true) {
 	this->indvH[0] = this->H;
 	this->indvH[1] = this->H + 2;
-	setU(U);
-	setT(t);
-	setV(v);
+
+	vHFDimer<T>::setU(U);
+	vHFDimer<T>::setT(t);
+	vHFDimer<T>::setV(v);
 }
+
+// region Initialize templates
+#ifdef BUILD_FLOAT
+template
+class QuanFloq::HFDimer<float>;
+#endif
+#ifdef BUILD_DOUBLE
+template
+class QuanFloq::HFDimer<double>;
+#endif
+#ifdef BUILD_CFLOAT
+template
+class QuanFloq::HFDimer<cfloat >;
+#endif
+#ifdef BUILD_CDOUBLE
+template
+class QuanFloq::HFDimer<cdouble >;
+#endif
+// endregion

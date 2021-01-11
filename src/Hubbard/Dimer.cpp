@@ -19,12 +19,21 @@ Dimer<T>::Dimer( T v, T U, T t ) :
 	vDimer<T>::setV(v);
 }
 
+// region Initialize templates
+#ifdef BUILD_FLOAT
 template
 class QuanFloq::Dimer<float>;
+#endif
+#ifdef BUILD_DOUBLE
 template
 class QuanFloq::Dimer<double>;
+#endif
+#ifdef BUILD_CFLOAT
 template
 class QuanFloq::Dimer<cfloat >;
+#endif
+#ifdef BUILD_CDOUBLE
 template
 class QuanFloq::Dimer<cdouble >;
-
+#endif
+// endregion

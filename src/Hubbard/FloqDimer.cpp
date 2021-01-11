@@ -24,11 +24,21 @@ FloqDimer<T>::FloqDimer( int nF_max, T v0, T v1, T U, T w, T t ):
 }
 // endregion
 
+// region Initialize templates
+#ifdef BUILD_FLOAT
 template
 class QuanFloq::FloqDimer<float>;
+#endif
+#ifdef BUILD_DOUBLE
 template
 class QuanFloq::FloqDimer<double>;
+#endif
+#ifdef BUILD_CFLOAT
 template
 class QuanFloq::FloqDimer<cfloat >;
+#endif
+#ifdef BUILD_CDOUBLE
 template
 class QuanFloq::FloqDimer<cdouble >;
+#endif
+// endregion

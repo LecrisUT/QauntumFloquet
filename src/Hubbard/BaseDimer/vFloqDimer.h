@@ -5,24 +5,30 @@
 #ifndef QF_BASEFLOQDIMER_H
 #define QF_BASEFLOQDIMER_H
 
-#include "../BaseHamil/vFloqHamil.h"
-#include "vDimer.h"
+#include <vFloqHamil.h>
+#include <vDimer.h>
 
 namespace QuanFloq {
-	// region Class Declarations
+	// region Class Declaration
 	template<typename T>
 	class vFloqDimer;
+	using svFloqDimer = vFloqDimer<float>;
+	using dvFloqDimer = vFloqDimer<double>;
+	using cvFloqDimer = vFloqDimer<cfloat >;
+	using zvFloqDimer = vFloqDimer<cdouble >;
+	// endregion
+
 	template<typename T>
 	class vFloqDimer :
-			virtual public vHamil<T>,
 			virtual public vFloqHamil<T>,
 			virtual public vDimer<T> {
 	protected:
 		T v1;
 
-	public:
+	protected:
 		vFloqDimer();
 
+	public:
 		virtual void setT( T t, bool CalcS );
 		[[nodiscard]] T getV0() const;
 		virtual void setV0( T v0, bool CalcS );

@@ -23,11 +23,21 @@ FloqHFDimer<T>::FloqHFDimer( int nFH, int nF_max, T v0, T v1, T U, T w, T t ) :
 	this->CalcSH();
 }
 
+// region Initialize templates
+#ifdef BUILD_FLOAT
 template
 class QuanFloq::FloqHFDimer<float>;
+#endif
+#ifdef BUILD_DOUBLE
 template
 class QuanFloq::FloqHFDimer<double>;
+#endif
+#ifdef BUILD_CFLOAT
 template
 class QuanFloq::FloqHFDimer<cfloat >;
+#endif
+#ifdef BUILD_CDOUBLE
 template
 class QuanFloq::FloqHFDimer<cdouble >;
+#endif
+// endregion

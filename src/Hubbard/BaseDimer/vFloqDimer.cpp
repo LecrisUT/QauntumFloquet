@@ -10,12 +10,12 @@ template<typename T>
 vFloqDimer<T>::vFloqDimer() = default;
 template<typename T>
 void vFloqDimer<T>::setT( T t, bool CalcS ) {
-	t = t;
+	this->t = t;
 	auto t2 = t * sqrt(T(2.0f));
 	for (auto it:{1, 5})
 		this->H[it] = t2;
 	for (auto it:{3, 7})
-		if constexpr (std::__1::is_same_v<T, float> || std::__1::is_same_v<T, double>)
+		if constexpr (std::is_same_v<T, float> || std::is_same_v<T, double>)
 			this->H[it] = t2;
 		else
 			this->H[it] = std::conj(t2);
@@ -28,9 +28,9 @@ inline T vFloqDimer<T>::getV0() const {
 }
 template<typename T>
 void vFloqDimer<T>::setV0( T v0, bool CalcS ) {
-	v = v0;
-	this->H[0] = v0 + U;
-	this->H[8] = -v0 + U;
+	this->v = v0;
+	this->H[0] = v0 + this->U;
+	this->H[8] = -v0 + this->U;
 	if (CalcS)
 		this->CalcSH();
 }
@@ -49,7 +49,7 @@ void vFloqDimer<T>::setV1( T tv1, bool CalcS ) {
 }
 template<typename T>
 void vFloqDimer<T>::setU( T U, bool CalcS ) {
-	U = U;
+	this->U = U;
 	this->H[0] = this->v + U;
 	this->H[8] = -this->v + U;
 	if (CalcS)
@@ -67,3 +67,24 @@ template<typename T>
 inline void vFloqDimer<T>::setU( T U ) {
 	this->setU(U, true);
 }
+
+// region Initialize templates
+//#ifdef BUILD_VIRTUAL
+#ifdef BUILD_FLOAT
+template
+class QuanFloq::vFloqDimer<float>;
+#endif
+#ifdef BUILD_DOUBLE
+template
+class QuanFloq::vFloqDimer<double>;
+#endif
+#ifdef BUILD_CFLOAT
+template
+class QuanFloq::vFloqDimer<cfloat >;
+#endif
+#ifdef BUILD_CDOUBLE
+template
+class QuanFloq::vFloqDimer<cdouble >;
+#endif
+//#endif
+// endregion

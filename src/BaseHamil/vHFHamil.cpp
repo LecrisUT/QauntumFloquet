@@ -1,4 +1,4 @@
-#include "HFHamil.h"
+#include "vHFHamil.h"
 #include <cstdlib>
 #include <mkl.h>
 
@@ -7,22 +7,6 @@ using namespace QuanFloq;
 // region Instantiation
 template<typename T>
 void copyhtoH( T* h, T* H, int n );
-//template<>
-//void vHFHamil<float>::mCalcUEx( float* Bra, float* Ket );
-//template<>
-//void vHFHamil<double>::mCalcUEx( double* Bra, double* Ket );
-//template<>
-//void vHFHamil<cfloat >::mCalcUEx( cfloat* Bra, cfloat* Ket );
-//template<>
-//void vHFHamil<cdouble >::mCalcUEx( cdouble* Bra, cdouble* Ket );
-//template<>
-//void vHFHamil<float>::mCalcUEx_p1( float* BraKet, float* acc );
-//template<>
-//void vHFHamil<double>::mCalcUEx_p1( double* BraKet, double* acc );
-//template<>
-//void vHFHamil<cfloat >::mCalcUEx_p1( cfloat* BraKet, cfloat* acc );
-//template<>
-//void vHFHamil<cdouble >::mCalcUEx_p1( cdouble* BraKet, cdouble* acc );
 // endregion
 
 // region Constructor/Destructor
@@ -33,8 +17,8 @@ vHFHamil<T>::vHFHamil() :
 template<typename T>
 vHFHamil<T>::vHFHamil( int nElec, int nOrb, bool initM ) :
 		nElec(nElec), nOrb(nOrb), nUEx_max(this->nH * this->nH), nUEx(nUEx_max),
-		h(initM ? new T[this->nH * this->nH] : nullptr),
-		tensUEx(initM ? new T[nUEx_max * this->nH * this->nH] : nullptr),
+		h(initM ? this->Sym == Full ? new T[this->nH * this->nH]() : new T[this->nH * (this->nH + 1) / 2]() : nullptr),
+		tensUEx(initM ? new T[nUEx_max * this->nH * this->nH]() : nullptr),
 		vh(initM ? new T[nUEx_max] : nullptr),
 		indvH(initM ? new T* [nUEx_max] : nullptr) {
 	this->PreHPsi.push_front(&vHFHamil<T>::UpdateH);
@@ -43,8 +27,8 @@ vHFHamil<T>::vHFHamil( int nElec, int nOrb, bool initM ) :
 template<typename T>
 vHFHamil<T>::vHFHamil( int nElec, int nOrb, int nUEx, bool initM ) :
 		nElec(nElec), nOrb(nOrb), nUEx_max(nUEx), nUEx(nUEx_max),
-		h(initM ? new T[this->nH * this->nH] : nullptr),
-		tensUEx(initM ? new T[nUEx_max * this->nH * this->nH] : nullptr),
+		h(initM ? this->Sym == Full ? new T[this->nH * this->nH]() : new T[this->nH * (this->nH + 1) / 2]() : nullptr),
+		tensUEx(initM ? new T[nUEx_max * this->nH * this->nH]() : nullptr),
 		vh(initM ? new T[nUEx_max] : nullptr),
 		indvH(initM ? new T* [nUEx_max] : nullptr) {
 	this->PreHPsi.push_front(&vHFHamil<T>::UpdateH);
@@ -57,23 +41,6 @@ vHFHamil<T>::vHFHamil( int nElec, int nOrb, int nUEx, T* h, T* tensUEx, T* vh, T
 	this->PreHPsi.push_front(&vHFHamil<T>::UpdateH);
 	this->PrePsiHPsi.push_front(&vHFHamil<T>::UpdateH);
 }
-
-template<typename T>
-HFHamil<T>::HFHamil( int nH, Hamil_Sym Sym, int nElec, int nOrb, int nUEx ):
-		vHamil<T>(nH, Sym),
-		vHFHamil<T>(nElec, nOrb, nUEx, true) { }
-template<typename T>
-HFHamil<T>::HFHamil( int nH, Hamil_Sym Sym, int nElec, int nOrb, int nUEx, T* h, T* UEx ) :
-		HFHamil<T>(nH, Sym, nElec, nOrb, nUEx) {
-	vHFHamil<T>::Initialize(h, UEx);
-}
-template<typename T>
-HFHamil<T>::HFHamil( int nH, Hamil_Sym Sym, int nElec, int nOrb ) :
-		HFHamil<T>(nH, Sym, nElec, nOrb, nH * nH) { }
-template<typename T>
-HFHamil<T>::HFHamil( int nH, Hamil_Sym Sym, int nElec, int nOrb, T* h, T* UEx ) :
-		HFHamil<T>(nH, Sym, nElec, nOrb, nH * nH, h, UEx) { }
-
 #if __cplusplus >= 202002L
 template<typename T, HFHamilSize Sz>
 tHFHamil<T, Sz>::tHFHamil() : tHamil<T,Sz>() {
@@ -93,7 +60,7 @@ tHFHamil<T, Sz>::tHFHamil( T* th ):tHFHamil() {
 
 // region Get/Set
 template<typename T>
-T* vHFHamil<T>::geth() const {
+const T* vHFHamil<T>::geth() const {
 	return h;
 }
 template<typename T>
@@ -209,11 +176,12 @@ void vHFHamil<T>::PsiHPsi( T* tPsi, T* tE, T* tHPsi, bool tupdateH ) {
 template<typename T>
 void vHFHamil<T>::UpdateH( T* tPsi ) {
 //	T vhUEx[nUEx] = {vh};
+	// TODO: Fix dynamically allocated memory allocating random amounts
+	// TODO: Struct template use pre-determined memory
 	T vhUEx[nUEx];
-	// TODO: Change to std::copy
-	for (int i = 0; i < nUEx; i++)
-		vhUEx[i] = vh[i];
-//	std::memcpy(vhUEx,vh,nUEx);
+//	auto vhUEx = new T[nUEx]();
+//	auto vhUEx = (T*)calloc(nUEx, sizeof(T));
+	std::copy(vh, vh + nUEx, vhUEx);
 	CalcUEx(tPsi, vhUEx);
 	// NOTE: Might not be compiler optimized (no SIMD etc.)
 	for (auto iH = 0; iH < nUEx; iH++)
@@ -249,7 +217,12 @@ void vHFHamil<T>::CalcUEx( T* tPsi, T* acc ) {
 }
 template<typename T>
 inline void vHFHamil<T>::mCalcUEx( T* Bra, T* Ket, T* acc ) {
-	T BraKet[this->nH * this->nH];
+	const auto nH2 = this->nH * this->nH;
+	T BraKet[nH2];
+//	auto BraKet = new T[nH2]();
+//	auto BraKet = (T*)calloc(nH2, sizeof(T));
+//	static const auto T0 = T(0.0f);
+	std::fill(BraKet, BraKet + nH2, vHamil<T>::T0);
 	if constexpr (std::is_same_v<T, float>)
 		cblas_sger(CblasRowMajor, this->nH, this->nH, 1.0f, Bra, 1, Ket, 1, BraKet, this->nH);
 	else if constexpr (std::is_same_v<T, double>)
@@ -262,32 +235,6 @@ inline void vHFHamil<T>::mCalcUEx( T* Bra, T* Ket, T* acc ) {
 			static_assert(sizeof(T) != sizeof(T), "Type not supported");
 	mCalcUEx_p1(BraKet, acc);
 }
-//// region Specific Implementation mCalUEx
-//template<>
-//void vHFHamil<float>::mCalcUEx( float* Bra, float* Ket, float* acc ) {
-//	float BraKet[nH * nH];
-//	cblas_sger(CblasRowMajor, nH, nH, 1.0f, Bra, 1, Ket, 1, BraKet, nH);
-//	mCalcUEx_p1(BraKet, acc);
-//}
-//template<>
-//void vHFHamil<double>::mCalcUEx( double* Bra, double* Ket, double* acc ) {
-//	double BraKet[nH * nH];
-//	cblas_dger(CblasRowMajor, nH, nH, 1.0f, Bra, 1, Ket, 1, BraKet, nH);
-//	mCalcUEx_p1(BraKet, acc);
-//}
-//template<>
-//void vHFHamil<cfloat >::mCalcUEx( cfloat* Bra, cfloat* Ket, cfloat* acc ) {
-//	cfloat BraKet[nH * nH];
-//	cblas_cgerc(CblasRowMajor, nH, nH, &cfloat1, Bra, 1, Ket, 1, BraKet, nH);
-//	mCalcUEx_p1(BraKet, acc);
-//}
-//template<>
-//void vHFHamil<cdouble >::mCalcUEx( cdouble* Bra, cdouble* Ket, cdouble* acc ) {
-//	cdouble BraKet[nH * nH];
-//	cblas_zgerc(CblasRowMajor, nH, nH, &cdouble1, Bra, 1, Ket, 1, BraKet, nH);
-//	mCalcUEx_p1(BraKet, acc);
-//}
-//// endregion
 template<typename T>
 inline void vHFHamil<T>::mCalcUEx_p1( T* BraKet, T* acc ) {
 	auto nH2 = this->nH * this->nH;
@@ -306,43 +253,73 @@ inline void vHFHamil<T>::mCalcUEx_p1( T* BraKet, T* acc ) {
 	else
 			static_assert(sizeof(T) != sizeof(T), "Type not supported");
 }
-//// region Specific Implementation CalUEx
-//template<>
-//void vHFHamil<float>::mCalcUEx_p1( float* BraKet, float* acc ) {
-//	cblas_sgemv(CblasRowMajor, CblasNoTrans, nUEx, nH * nH,
-//	            1.0f, tensUEx, nH * nH, BraKet, 1, 1.0f, acc, 1);
-//}
-//template<>
-//void vHFHamil<double>::mCalcUEx_p1( double* BraKet, double* acc ) {
-//	cblas_dgemv(CblasRowMajor, CblasNoTrans, nUEx, nH * nH,
-//	            1.0f, tensUEx, nH * nH, BraKet, 1, 1.0f, acc, 1);
-//}
-//template<>
-//void vHFHamil<cfloat >::mCalcUEx_p1( cfloat* BraKet, cfloat* acc ) {
-//	cblas_cgemv(CblasRowMajor, CblasNoTrans, nUEx, nH * nH,
-//	            &cfloat1, tensUEx, nH * nH, BraKet, 1, &cfloat1, acc, 1);
-//}
-//template<>
-//void vHFHamil<cdouble >::mCalcUEx_p1( cdouble* BraKet, cdouble* acc ) {
-//	cblas_zgemv(CblasRowMajor, CblasNoTrans, nUEx, nH * nH,
-//	            &cdouble1, tensUEx, nH * nH, BraKet, 1, &cdouble1, acc, 1);
-//}
-//// endregion
 // endregion
 
+template<typename T>
+const T* vHFHamil<T>::geth( [[maybe_unused]] int m, [[maybe_unused]] int n ) const {
+	return h;
+}
+template<typename T>
+const T* vHFHamil<T>::getH( [[maybe_unused]] int m, [[maybe_unused]] int n ) const {
+	return this->H;
+}
+template<typename T>
+const T* vHFHamil<T>::getPsi( [[maybe_unused]] int m, [[maybe_unused]] int n ) const {
+	return this->Psi;
+}
+template<typename T>
+const T* vHFHamil<T>::getE( [[maybe_unused]] int n ) const {
+	return this->E;
+}
+template<typename T>
+T vHFHamil<T>::Overlap( T* Bra, T* Ket, [[maybe_unused]] int n ) {
+	return this->Overlap(Bra, Ket);
+}
+template<typename T>
+void vHFHamil<T>::NormalizePsi( T* tPsi, [[maybe_unused]] int n, bool FlagNorm ) {
+	this->NormalizePsi(tPsi, FlagNorm);
+}
+template<typename T>
+void vHFHamil<T>::HPsi( T* tPsi, T* tHPsi, [[maybe_unused]] int m, [[maybe_unused]] int n ) {
+	this->HPsi(tPsi, tHPsi);
+}
+template<typename T>
+void vHFHamil<T>::PsiHPsi( T* tPsi, T* tE, T* tHPsi, [[maybe_unused]] int m, [[maybe_unused]] int n ) {
+	this->PsiHPsi(tPsi, tE, tHPsi);
+}
+template<typename T>
+void vHFHamil<T>::getUEx( T* tUEx, int m, int n ) {
+	std::fill(tUEx, tUEx + m * n, vHamil<T>::T0);
+	getUEx(tUEx, nullptr);
+}
+template<typename T>
+void vHFHamil<T>::getUEx( T* tUEx, T* tPsi, int m, int n,
+						  [[maybe_unused]] int mPsi, [[maybe_unused]] int nPsi ) {
+	std::fill(tUEx, tUEx + m * n, vHamil<T>::T0);
+	getUEx(tUEx, tPsi);
+}
+template<typename T>
+void vHFHamil<T>::UpdateH( T* tPsi, [[maybe_unused]] int m, [[maybe_unused]] int n ) {
+	UpdateH(tPsi);
+}
+
+// region Initialize templates
+//#ifdef BUILD_VIRTUAL
+#ifdef BUILD_FLOAT
 template
 class QuanFloq::vHFHamil<float>;
+#endif
+#ifdef BUILD_DOUBLE
 template
 class QuanFloq::vHFHamil<double>;
+#endif
+#ifdef BUILD_CFLOAT
 template
 class QuanFloq::vHFHamil<cfloat >;
+#endif
+#ifdef BUILD_CDOUBLE
 template
 class QuanFloq::vHFHamil<cdouble >;
-template
-class QuanFloq::HFHamil<float>;
-template
-class QuanFloq::HFHamil<double>;
-template
-class QuanFloq::HFHamil<cfloat >;
-template
-class QuanFloq::HFHamil<cdouble >;
+#endif
+//#endif
+// endregion

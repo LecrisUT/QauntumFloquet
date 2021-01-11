@@ -3,7 +3,7 @@
 //
 #include <complex>
 #include <list>
-#include "../Conf.h"
+#include <Conf.h>
 
 #ifndef QF_BASEHAMIL_H
 #define QF_BASEHAMIL_H
@@ -23,10 +23,12 @@ namespace QuanFloq {
 	// endregion
 
 	// region Class Declarations
-//	template<typename T>
-//	class IHamil;
 	template<typename T>
 	class vHamil;
+	using svHamil = vHamil<float>;
+	using dvHamil = vHamil<double>;
+	using cvHamil = vHamil<cfloat >;
+	using zvHamil = vHamil<cdouble >;
 #if __cplusplus >= 202002L
 	struct HamilSize;
 	template<typename T, HamilSize Sz>
@@ -51,8 +53,9 @@ namespace QuanFloq {
 		bool initialized = false;
 	public:
 		const int nH;
-		const Hamil_Sym Sym;
 	protected:
+		static constexpr auto T0 = T(0.0f);
+		const Hamil_Sym Sym;
 		T* H;
 		T* Psi;
 		T* E;
@@ -65,14 +68,15 @@ namespace QuanFloq {
 
 		// region Methods
 		// region Constructor/Destructor
-	public:
+	protected:
 		vHamil();
 		explicit vHamil( int nH, Hamil_Sym Sym, bool initM = false );
 		vHamil( int nH, Hamil_Sym Sym, T* H, T* Psi, T* E );
 		// endregion
 
 		// region Get/Set
-		[[nodiscard]] T* getH() const;
+	public:
+		[[nodiscard]] const T* getH() const;
 		virtual void setH( T* H );
 		// TODO: add setH (T(*)[Sz.nH]) for templated Sz, include old interface as well
 		virtual void setH( T** H );
@@ -97,6 +101,18 @@ namespace QuanFloq {
 
 		virtual T Overlap( T* Bra, T* Ket );
 		virtual void NormalizePsi( T* tPsi, bool FlagNorm = false );
+
+	public:
+		// Temporary matlab compatible interactions
+		// TODO: Currently interface have to be overriden to resolve matlab "Access to base class is ambiguous."
+		// Submitted issue at https://www.mathworks.com/matlabcentral/answers/708013-matlab-clib-diamond-problem
+		virtual const T* getH( int m, int n ) const;
+		virtual const T* getPsi( int m, int n ) const;
+		virtual const T* getE( int n ) const;
+		virtual T Overlap( T* Bra, T* Ket, int n );
+		virtual void NormalizePsi( T* tPsi, int n, bool FlagNorm = false );
+		virtual void HPsi( T* tPsi, T* tHPsi, int m, int n );
+		virtual void PsiHPsi( T* tPsi, T* tE, T* tHPsi, int m, int n );
 		// endregion
 		// endregion
 	};

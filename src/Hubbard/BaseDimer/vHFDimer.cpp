@@ -21,14 +21,14 @@ T* vHFDimer<T>::MakeUEx( T U ) {
 
 template<typename T>
 void vHFDimer<T>::setT( T t ) {
-	vDimer<T>::t = t;
+	this->t = t;
 	this->h[1] = t;
 	this->H[1] = t;
 }
 template<typename T>
 void vHFDimer<T>::setV( T v ) {
-	vDimer<T>::v = v;
-	auto v2 = v / T(2.0f);
+	this->v = v;
+	auto v2 = v * T(.5f);
 	this->h[0] = v2;
 	this->H[0] = v2;
 	this->vh[0] = v2;
@@ -38,17 +38,28 @@ void vHFDimer<T>::setV( T v ) {
 }
 template<typename T>
 void vHFDimer<T>::setU( T U ) {
-	vDimer<T>::U = U;
+	this->U = U;
 	this->tensUEx[0] = U;
 	this->tensUEx[7] = U;
 }
 
-
+// region Initialize templates
+//#ifdef BUILD_VIRTUAL
+#ifdef BUILD_FLOAT
 template
 class QuanFloq::vHFDimer<float>;
+#endif
+#ifdef BUILD_DOUBLE
 template
 class QuanFloq::vHFDimer<double>;
+#endif
+#ifdef BUILD_CFLOAT
 template
 class QuanFloq::vHFDimer<cfloat >;
+#endif
+#ifdef BUILD_CDOUBLE
 template
 class QuanFloq::vHFDimer<cdouble >;
+#endif
+//#endif
+// endregion

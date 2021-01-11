@@ -1,14 +1,23 @@
-#include "Hamil.h"
+#include <vHamil.h>
 #include <mkl.h>
 
-#ifndef QF_FLOQHAMIL_H
-#define QF_FLOQHAMIL_H
+#ifndef QF_BASEFLOQHAMIL_H
+#define QF_BASEFLOQHAMIL_H
 namespace QuanFloq {
 	// region Const values
 #ifdef OLDMKL
 	static constexpr char charU = 'U';
 	static constexpr char charN = 'N';
 #endif
+	// endregion
+
+	// region Class Declarations
+	template<typename T>
+	class vFloqHamil;
+	using svFloqHamil = vFloqHamil<float>;
+	using dvFloqHamil = vFloqHamil<double>;
+	using cvFloqHamil = vFloqHamil<cfloat >;
+	using zvFloqHamil = vFloqHamil<cdouble >;
 	// endregion
 /**
  * Main Floquet vHamil object
@@ -19,20 +28,21 @@ namespace QuanFloq {
 		// region Fields
 	private:
 		bool initialized = false;
+	public:
+		const int nFH;
+		const int nF_max;
 	protected:
+		const int n2F_max;
+		const int nH2F_max;
 		T w;
 		bool CalcHf;
 	public:
 		struct matrix_descr SDescr;
-		const int nFH;
-		const int nF_max;
-		const int n2F_max;
-		const int nH2F_max;
 		sparse_matrix_t SH;
 		sparse_matrix_t SHf;
 		sparse_matrix* ActiveSH;
-		const int csr_nvalues;
 	protected:
+		const int csr_nvalues;
 		T* csr_values_SH;
 		T* csr_values_SHf;
 		T* csr_values_Active;
@@ -40,21 +50,21 @@ namespace QuanFloq {
 		int* csr_rows;
 		int* csr_diagInd;
 		T** csr_values_map;
-	protected:
 		int* diag_ind;
 		T* partialt;
 		// endregion
 
 		// region Methods
 		// region Constructor/Destructor
-	public:
+	protected:
 		vFloqHamil();
 		vFloqHamil( int tnFH, int tnF_max, bool initM = false );
 		vFloqHamil( int nFh, int nFMax, int csrNvalues, int* csrColumns, int* csrRows, int* csrDiagInd,
 		            T* csrValuesSh, T* csrValuesSHf, T** csrValuesMap, int* diagInd, T* partialt );
-	public:
 		// endregion
+
 		// region Get/Set
+	public:
 		T getW() const;
 		virtual void setW( T tw, bool CalcS = true );
 		void setH( T* tH, bool CalcS );
@@ -67,6 +77,12 @@ namespace QuanFloq {
 	public:
 		using vHamil<T>::HPsi;
 		using vHamil<T>::PsiHPsi;
+		// Temporary due to MATLAB interface
+		using vHamil<T>::Overlap;
+		using vHamil<T>::NormalizePsi;
+		using vHamil<T>::getH;
+		using vHamil<T>::getPsi;
+		using vHamil<T>::getE;
 		// endregion
 
 		// region Main Methods
@@ -92,15 +108,17 @@ namespace QuanFloq {
 		virtual void CalcSHf_part();
 #endif
 		// endregion
-		// endregion
-	};
 
-	template<typename T>
-	class FloqHamil final :
-			virtual public vFloqHamil<T> {
 	public:
-		FloqHamil( int nH, Hamil_Sym SSym, int nFH, int nF_max );
-		FloqHamil( int nH, Hamil_Sym SSym, int nFH, int nF_max, T* H, T w );
+		virtual const T* getH( int m, int n, int nf ) const;
+		const T* getH( int m, int n ) const override;
+		const T* getPsi( int m, int n ) const override;
+		const T* getE( int n ) const override;
+		T Overlap( T* Bra, T* Ket, [[maybe_unused]] [[maybe_unused]] int n ) override;
+		void NormalizePsi( T* tPsi, int n, bool FlagNorm = false ) override;
+		void HPsi( T* tPsi, T* tHPsi, int m, int n ) override;
+		void PsiHPsi( T* tPsi, T* tE, T* tHPsi, int m, int n ) override;
+		// endregion
 	};
 
 #if __cplusplus >= 202002L
@@ -128,17 +146,6 @@ namespace QuanFloq {
 		explicit tFloqHamil( T* tH );
 	};
 #endif
-	// endregion
-
-	// region template initialization
-	extern template
-	class FloqHamil<float>;
-	extern template
-	class FloqHamil<double>;
-	extern template
-	class FloqHamil<cfloat>;
-	extern template
-	class FloqHamil<cdouble>;
 	// endregion
 }
 #endif
